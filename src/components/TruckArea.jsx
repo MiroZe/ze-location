@@ -6,23 +6,20 @@ import TruckList from "./TruckList";
 const TruckArea = () => {
 
     const [truckList, setTruckList] = useState([]);
+  
+  
 
 
     const addTruckSubmitHandler = (e,formValues,time) => {
 
         e.preventDefault();
         const truckTime = {hour:time.$H,mins:time.$m}
-
-       
-        console.log("Time submitted:", truckTime);
         setTruckList(prevState => [...prevState,{formValues,truckTime}])
-       
-        
-     
-        
+          
         
     }
     
+
 
     return(
 

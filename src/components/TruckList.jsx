@@ -1,10 +1,15 @@
 import { Box } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import TruckTimer from './TruckTimer';
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 
 const TruckList = ({ truckList }) => {
+
+
+
+  
+    
+
   const columns = [
     { field: 'id', headerName: 'N:', width: 50 },
     {
@@ -38,35 +43,31 @@ const TruckList = ({ truckList }) => {
       width: 160,
     },
     {
-        field: 'coundown',
-        headerName: 'Coundown',
-        description: 'This column shows time in HH:mm format.',
-        width: 400,
-        renderCell: (params) => <TruckTimer/>
+      field: 'countdown',
+      headerName: 'Countdown',
+      description: 'This column shows the countdown timer.',
+      width: 400,
+      renderCell: () => {
+        
+        return <TruckTimer  />;
       },
-      {
-        field: 'status',
-        headerName: 'Status',
-        width: 100,
-        renderCell: () => <CheckCircleOutlineIcon style={{color:'green'}}/>
-      },
+    },
+    
   ];
 
-  
-
-
- 
-  
   const rows = truckList.map((t, index) => ({
     id: index + 1,
     tsn: t.formValues.tsn,
-    lrn: t.formValues.lrn,  
+    lrn: t.formValues.lrn,
+
     truckNumber: t.formValues.truckNumber,
     carrier: t.formValues.carrier,
-    time: `${t.truckTime.hour}:${t.truckTime.mins < 10 ? '0' + t.truckTime.mins : t.truckTime.mins}`,  
-    countDown: t.countDown || null,
-    staus: ''
+    time: `${t.truckTime.hour}:${t.truckTime.mins < 10 ? '0' + t.truckTime.mins : t.truckTime.mins}`,
+   
+    status: '',
   }));
+
+ 
 
   return (
     <Box sx={{ height: 400, width: '100%' }}>
@@ -88,3 +89,4 @@ const TruckList = ({ truckList }) => {
 };
 
 export default TruckList;
+

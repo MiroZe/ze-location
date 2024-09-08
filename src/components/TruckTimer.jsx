@@ -1,5 +1,7 @@
 import { useTimer } from 'react-timer-hook';
 import styles from './TruckTimer.module.css'
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
 function MyTimer({ expiryTimestamp }) {
   const {
     
@@ -21,15 +23,17 @@ function MyTimer({ expiryTimestamp }) {
       <span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span>
       </div>
      <div className={styles['time-actions-container']}>
-      <button onClick={start}>Start</button>
-      <button onClick={pause}>Pause</button>
-      <button onClick={resume}>Resume</button>
-      <button onClick={() => {
+        <ButtonGroup size='small' variant="contained">
+      <Button onClick={start}>Start</Button>
+      <Button onClick={pause}>Pause</Button>
+      <Button onClick={resume}>Resume</Button>
+      <Button onClick={() => {
        
         const time = new Date();
         time.setSeconds(time.getSeconds() + 3600);
         restart(time)
-      }}>Restart</button>
+      }}>Restart</Button>
+      </ButtonGroup>
       </div>
     </div>
   );
@@ -37,7 +41,7 @@ function MyTimer({ expiryTimestamp }) {
 
 const TruckTimer = () => {
   const time = new Date();
-  time.setSeconds(time.getSeconds() + 3600); // 10 minutes timer
+  time.setSeconds(time.getSeconds() + 3600); 
   return (
     <div>
       <MyTimer expiryTimestamp={time} />

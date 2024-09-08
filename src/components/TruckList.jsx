@@ -1,10 +1,12 @@
 import { Box } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import TruckTimer from './TruckTimer';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+
 
 const TruckList = ({ truckList }) => {
   const columns = [
-    { field: 'id', headerName: 'Number', width: 90 },
+    { field: 'id', headerName: 'N:', width: 50 },
     {
       field: 'tsn',
       headerName: 'TSN',
@@ -39,8 +41,14 @@ const TruckList = ({ truckList }) => {
         field: 'coundown',
         headerName: 'Coundown',
         description: 'This column shows time in HH:mm format.',
-        width: 160,
+        width: 400,
         renderCell: (params) => <TruckTimer/>
+      },
+      {
+        field: 'status',
+        headerName: 'Status',
+        width: 100,
+        renderCell: () => <CheckCircleOutlineIcon style={{color:'green'}}/>
       },
   ];
 
@@ -56,7 +64,8 @@ const TruckList = ({ truckList }) => {
     truckNumber: t.formValues.truckNumber,
     carrier: t.formValues.carrier,
     time: `${t.truckTime.hour}:${t.truckTime.mins < 10 ? '0' + t.truckTime.mins : t.truckTime.mins}`,  
-    countDown: t.countDown || null
+    countDown: t.countDown || null,
+    staus: ''
   }));
 
   return (

@@ -1,0 +1,15 @@
+.timer-container {
+
+    text-align: 'center';
+    display: flex;
+}
+
+.time-container {
+
+    font-size: 1em;
+}
+
+.time-actions-container {
+
+    font-size: 1em;
+}

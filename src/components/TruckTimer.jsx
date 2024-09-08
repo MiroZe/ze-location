@@ -26,10 +26,7 @@ function MyTimer({ expiryTimestamp }) {
     resume,
     restart,
   } = useTimer({ expiryTimestamp, onExpire: () => hasExpire() });
-
-  
-  console.log(seconds + minutes);
-  
+ 
 
   
   return (

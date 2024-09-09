@@ -1,0 +1,14 @@
+.header-container {
+    display: flex;
+}
+
+.menu-container ul{
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.menu-container ul li {
+    text-decoration: none;
+    list-style-type: none;
+}

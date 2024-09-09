@@ -4,7 +4,7 @@ import { TimePicker } from '@mui/x-date-pickers';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
-import { useForm } from '../hooks/useForm';
+import { useForm } from '../../hooks/useForm';
 
 const TruckItem = ({ addTruckSubmitHandler }) => {
     const [time, setTime] = useState(dayjs());

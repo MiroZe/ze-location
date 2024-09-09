@@ -1,5 +1,6 @@
 import './App.css'
-import TruckArea from './components/TruckArea'
+import Header from './components/Header';
+import TruckArea from './components/Truck/TruckArea';
 
 function App() {
 
@@ -7,7 +8,7 @@ function App() {
   return (
     <>
     
-     
+     <Header/>
      <TruckArea/>
      
      

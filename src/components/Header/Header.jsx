@@ -1,18 +1,19 @@
 
 import styles from './Header.module.css';
 import { Link } from '@mui/material';
+import logo from '../../assets/sgs-logo.png'
 
 const Header = () => {
 
 return (
     <div className={styles['header-container']}>
         <div className={styles['logo-container']}>
-            <img src="" alt="" />
+            <img src={logo} alt="SGS" />
         </div>
         <div className={styles['menu-container']}>
             <ul>
                 <li>
-                    <Link>Home</Link>
+                    <Link to={'/'}>Home</Link>
                 </li>
                 
                 <li>

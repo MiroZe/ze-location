@@ -1,6 +1,6 @@
 
 import styles from './Header.module.css';
-import { Link } from '@mui/material';
+import { Link } from 'react-router-dom';
 import logo from '../../assets/sgs-logo.png'
 
 const Header = () => {
@@ -12,12 +12,12 @@ return (
         </div>
         <div className={styles['menu-container']}>
             <ul>
-                <li>
+                <li >
                     <Link to={'/'}>Home</Link>
                 </li>
                 
                 <li>
-                    <Link>Menu</Link>
+                    <Link to={'/dashboard'}>Menu</Link>
                 </li>
                 <li>
                     <Link>Login</Link>

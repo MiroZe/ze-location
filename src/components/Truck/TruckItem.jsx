@@ -25,8 +25,13 @@ const TruckItem = ({ addTruckSubmitHandler }) => {
 
     const errorHandler = (e) => {
         if(e.target.value == ''){
-            console.log(e.target.value);
+           console.log(e.target.value);
+           
             setError(prev => ({...prev, [e.target.name]:true}))
+           
+            
+        }else {
+            setError(prev => ({...prev, [e.target.name]:false}))
         }
       
     }
@@ -52,6 +57,7 @@ const TruckItem = ({ addTruckSubmitHandler }) => {
 
 
 
+
     return (
 
         <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -63,10 +69,10 @@ const TruckItem = ({ addTruckSubmitHandler }) => {
                 onSubmit={handleSubmit}
             >
 
-                <TextField id="tsn" label="TSN" variant="filled" name='tsn' onChange={onChangeHandler} value={formValues.tsn} required error={!error.tsn} helperText={error.tsn?'The field is requiered':''} onBlur={errorHandler}/>
-                <TextField id="lrn" label="LRN" variant="filled" name='lrn' onChange={onChangeHandler} value={formValues.lrn} required error={error} helperText={error?'The field is requiered':''} onBlur={errorHandler}/>
-                <TextField id="truckNumber" name='truckNumber' label="Truck Number" variant="filled" onChange={onChangeHandler} value={formValues.truckNumber} required error={error} helperText={error?'The field is requiered':''} onBlur={errorHandler}/>
-                <TextField id="carrier" name='carrier' label="Carrier" variant="filled" onChange={onChangeHandler} value={formValues.carrier} required error={error} helperText={error?'The field is requiered':''} onBlur={errorHandler}/>
+                <TextField id="tsn" label="TSN" variant="filled" name='tsn' onChange={onChangeHandler} value={formValues.tsn} required error={error.tsn} helperText={error.tsn?'The field is requiered':''} onBlur={errorHandler}/>
+                <TextField id="lrn" label="LRN" variant="filled" name='lrn' onChange={onChangeHandler} value={formValues.lrn} required error={error.lrn} helperText={error?'The field is requiered':''} onBlur={errorHandler}/>
+                <TextField id="truckNumber" name='truckNumber' label="Truck Number" variant="filled" onChange={onChangeHandler} value={formValues.truckNumber} required error={error.truckNumber} helperText={error?'The field is requiered':''} onBlur={errorHandler}/>
+                <TextField id="carrier" name='carrier' label="Carrier" variant="filled" onChange={onChangeHandler} value={formValues.carrier} required error={error.carrier} helperText={error?'The field is requiered':''} onBlur={errorHandler}/>
 
 
                 <TimePicker

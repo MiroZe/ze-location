@@ -20,7 +20,7 @@ return (
                     <Link to={'/dashboard'}>Menu</Link>
                 </li>
                 <li>
-                    <Link>Login</Link>
+                    <Link to={'/auth/login'}>Login</Link>
                 </li>
                 <li>
                     <Link>Register</Link>

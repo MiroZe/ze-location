@@ -4,6 +4,6 @@
     text-align: center;
 }
 
-.login-container button:nth-of-type(2) {
+.login-container > form > div > button {
     background-color: #f3671a;
 }

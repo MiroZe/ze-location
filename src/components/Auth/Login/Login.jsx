@@ -12,6 +12,7 @@ import { useState } from "react";
 import styles from "./Login.module.css";
 import { Box } from "@mui/material";
 import { useForm } from "../../../hooks/useForm";
+import { userLogin } from "../../../services/authService";
 
 export const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -31,19 +32,27 @@ export const Login = () => {
 
   const handleMouseUpPassword = (e) => {
     e.preventDefault();
+    
   };
 
-  const onClickLoginHandler = (e) => {
+  const onClickLoginHandler = async (e, {username,password}) => {
     e.preventDefault();
-    console.log(formValues);
-    clearFormValues()
+    try {
+     const result = await userLogin({username,password});
+     console.log(result);
+     clearFormValues()
+     
+    } catch (error) {
+      console.log(error);
+      
+    }
   };
 
   return (
     <div className={styles["login-container"]}>
       <h3>Login form</h3>
 
-      <Box component="form" onSubmit={onClickLoginHandler}>
+      <Box component="form" onSubmit={(e) => onClickLoginHandler(e,formValues)}>
         <FormGroup>
           <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined" required>
             <InputLabel htmlFor="outlined-adornment-password">

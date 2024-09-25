@@ -4,7 +4,7 @@ const baseURL = "http://localhost:3000"
 
 export const userLogin = async (userData) => {
 
-    const result = request.post(`${baseURL}/login`,userData );
+    const result = request.post(`${baseURL}/auth/login`,userData );
   
 return result
 

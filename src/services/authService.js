@@ -1,11 +1,17 @@
-import {request} from './requester'
+import { request } from "./requester";
 
-const baseURL = "http://localhost:3000"
+const baseURL = "http://localhost:3000";
+
 
 export const userLogin = async (userData) => {
-
-    const result = request.post(`${baseURL}/auth/login`,userData );
+  const { username, password } = userData;
   
-return result
 
-}
+  const result = request.post(`${baseURL}/auth/login`, {username,password});
+  return result
+  };
+  
+
+
+
+

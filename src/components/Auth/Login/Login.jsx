@@ -13,9 +13,11 @@ import styles from "./Login.module.css";
 import { Box } from "@mui/material";
 import { useForm } from "../../../hooks/useForm";
 import { userLogin } from "../../../services/authService";
+import {useNavigate} from 'react-router-dom'
 
 export const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
   const initialLoginValues = {
     username: "",
     password: "",
@@ -38,8 +40,11 @@ export const Login = () => {
   const onClickLoginHandler = async (e, {username,password}) => {
     e.preventDefault();
     try {
-     const result = await userLogin({username,password});
-     console.log(result);
+      await userLogin({username,password});
+      navigate('/dashboard')
+     
+     
+    
      clearFormValues()
      
     } catch (error) {

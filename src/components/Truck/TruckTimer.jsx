@@ -16,8 +16,6 @@ function MyTimer({ expiryTimestamp }) {
 
     
   const {
-    
-
     seconds,
     minutes,
     hours,

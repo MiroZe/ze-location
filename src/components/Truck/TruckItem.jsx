@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {  useState } from "react";
 import { Box, TextField, Button } from "@mui/material";
 import { TimePicker } from "@mui/x-date-pickers";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -6,7 +6,9 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import { useForm } from "../../hooks/useForm";
 
+
 const TruckItem = ({ addTruckSubmitHandler }) => {
+ 
   const [time, setTime] = useState(dayjs());
   const [error, setError] = useState({
     tsn: false,
@@ -16,10 +18,15 @@ const TruckItem = ({ addTruckSubmitHandler }) => {
   });
   const initialValues = {
     tsn: "",
-    lrn: "",
-    truckNumber: "",
-    carrier: "",
   };
+  const additionalData = {
+    mrn: '',
+    truckNumber:'',
+    carrier: '',
+    timeOfAcception:''
+  };
+
+
 
   const errorHandler = (e) => {
     if (e.target.value == "") {
@@ -34,6 +41,7 @@ const TruckItem = ({ addTruckSubmitHandler }) => {
   const { formValues, onChangeHandler, clearFormValues } =
     useForm(initialValues);
 
+  
   const handleTimeChange = (newTime) => {
     setTime(newTime);
   };
@@ -68,42 +76,7 @@ const TruckItem = ({ addTruckSubmitHandler }) => {
           helperText={error.tsn ? "The field is requiered" : ""}
           onBlur={errorHandler}
         />
-        <TextField
-          id="lrn"
-          label="LRN"
-          variant="filled"
-          name="lrn"
-          onChange={onChangeHandler}
-          value={formValues.lrn}
-          required
-          error={error.lrn}
-          helperText={error ? "The field is requiered" : ""}
-          onBlur={errorHandler}
-        />
-        <TextField
-          id="truckNumber"
-          name="truckNumber"
-          label="Truck Number"
-          variant="filled"
-          onChange={onChangeHandler}
-          value={formValues.truckNumber}
-          required
-          error={error.truckNumber}
-          helperText={error ? "The field is requiered" : ""}
-          onBlur={errorHandler}
-        />
-        <TextField
-          id="carrier"
-          name="carrier"
-          label="Carrier"
-          variant="filled"
-          onChange={onChangeHandler}
-          value={formValues.carrier}
-          required
-          error={error.carrier}
-          helperText={error ? "The field is requiered" : ""}
-          onBlur={errorHandler}
-        />
+      
 
         <TimePicker
           label="Time"

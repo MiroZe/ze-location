@@ -3,3 +3,9 @@
 .truck-item-container {
     display: flex;
 }
+
+
+.truck-item-container .get-button {
+    background-color: #f3671a;
+    font-weight: 600;
+}

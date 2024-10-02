@@ -118,7 +118,7 @@ const TruckItem = ({ addTruckSubmitHandler }) => {
 
           {showAdditionalInputs && <TruckFullInfo onChangeHandler={onChangeHandler} additionalData={additionalData} />}
           <>
-            {!showLoader ? <Button onClick={() => getAdditionalData(formValues.tsn)}>Get Data</Button> : <Spinner showLoader={showLoader} />}
+            {!showLoader ? <Button className={styles['get-button']} variant="contained" size="small" onClick={() => getAdditionalData(formValues.tsn)}>Get Data</Button> : <Spinner showLoader={showLoader} />}
           </>
 
 

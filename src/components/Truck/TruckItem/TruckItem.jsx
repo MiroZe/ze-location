@@ -1,19 +1,20 @@
-import {  useState } from "react";
+import { useState } from "react";
 import { Box, TextField, Button } from "@mui/material";
-import { TimePicker } from "@mui/x-date-pickers";
+
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import dayjs from "dayjs";
-import { useForm } from "../../hooks/useForm";
-import TruckFullInfo from "./TruckFullInfo";
-import { getDeclarationById } from "../../services/truckService";
-import Spinner from '../Common/Loader'
+
+import { useForm } from "../../../hooks/useForm";
+import TruckFullInfo from "../TruckFullInfo/TruckFullInfo";
+import { getDeclarationById } from "../../../services/truckService";
+import Spinner from '../../Common/Loader';
+import styles from './TruckItem.module.css'
 
 
 const TruckItem = ({ addTruckSubmitHandler }) => {
- 
-  const [time, setTime] = useState(dayjs());
-  const [showLoader,setShowLoader] = useState(false)
+
+
+  const [showLoader, setShowLoader] = useState(false)
   const [showAdditionalInputs, setShowAdditionalInputs] = useState(false);
   const [error, setError] = useState({
     tsn: false,
@@ -46,28 +47,28 @@ const TruckItem = ({ addTruckSubmitHandler }) => {
   const { formValues, onChangeHandler, clearFormValues } =
     useForm(initialValues);
 
-  
-  const handleTimeChange = (newTime) => {
-    setTime(newTime);
-  };
+
+
 
   const handleSubmit = (e) => {
     if (e.target.checkValidity()) {
-      addTruckSubmitHandler(e, formValues, time);
+      addTruckSubmitHandler(e, formValues );
       clearFormValues();
     } else {
       alert("Form is invalid! Please check the fields...");
     }
   };
 
-  
+
 
   const getAdditionalData = async (tsn) => {
 
-    setShowLoader(true)
+
+
 
     try {
-      if(tsn) {
+      if (tsn) {
+        setShowLoader(true);
         const additionlTruckData = await getDeclarationById(tsn);
         setAdditionalData({
           carrier: additionlTruckData.declarationResult[0].client,
@@ -77,54 +78,54 @@ const TruckItem = ({ addTruckSubmitHandler }) => {
         setShowLoader(false);
         setShowAdditionalInputs(true);
       }
-      
+
+
     } catch (error) {
       console.error('Error fetching declaration:', error);
-             
+      setShowLoader(false);
     }
 
     console.log(showAdditionalInputs);
-    
+
 
   }
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <Box
-        component="form"
-        sx={{ "& > :not(style)": { m: 1, width: "25ch" } }}
-        noValidate
-        autoComplete="on"
-        onSubmit={handleSubmit}
-      >
-        <TextField
-          id="tsn"
-          label="TSN"
-          variant="filled"
-          name="tsn"
-          onChange={onChangeHandler}
-          value={formValues.tsn}
-          required
-          error={error.tsn}
-          helperText={error.tsn ? "The field is requiered" : ""}
-          onBlur={errorHandler}
-        />
-        <>
-        {!showLoader ? <Button onClick={() => getAdditionalData(formValues.tsn)}>Get Data</Button> : <Spinner showLoader={showLoader}/>}
-        </>
-        {showAdditionalInputs && <TruckFullInfo onChangeHandler={onChangeHandler} additionalData={additionalData} />}
-      
 
-        <TimePicker
-          label="Time"
-          ampm={false}
-          value={time}
-          onChange={handleTimeChange}
-          renderInput={(params) => <TextField {...params} variant="filled" />}
-        />
+    <div >
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <Box
+          component="form"
+          sx={{ "& > :not(style)": { m: 1, width: "25ch" } }}
+          noValidate
+          autoComplete="on"
+          onSubmit={handleSubmit}
+          className={styles['truck-item-container']}
 
-      </Box>
-    </LocalizationProvider>
+        >
+          <TextField
+            id="tsn"
+            label="TSN"
+            variant="filled"
+            name="tsn"
+            onChange={onChangeHandler}
+            value={formValues.tsn}
+            required
+            error={error.tsn}
+            helperText={error.tsn ? "The field is requiered" : ""}
+            onBlur={errorHandler}
+          />
+
+          {showAdditionalInputs && <TruckFullInfo onChangeHandler={onChangeHandler} additionalData={additionalData} />}
+          <>
+            {!showLoader ? <Button onClick={() => getAdditionalData(formValues.tsn)}>Get Data</Button> : <Spinner showLoader={showLoader} />}
+          </>
+
+
+
+        </Box>
+      </LocalizationProvider>
+    </div>
   );
 };
 

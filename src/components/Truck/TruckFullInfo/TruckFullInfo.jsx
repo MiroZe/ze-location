@@ -1,14 +1,24 @@
 import {  Button, TextField } from "@mui/material";
+import styles from './TruckFullInfo.module.css'
+import { TimePicker } from "@mui/x-date-pickers";
+import { useState } from "react";
+import dayjs from "dayjs";
 
 
 
 
 const TruckFullInfo = ({additionalData,onChangeHandler, }) => {
+
+
+  const [time, setTime] = useState(dayjs());
+  const handleTimeChange = (newTime) => {
+    setTime(newTime);
+  };
  
 
 
 return (
-  <div>
+  <div className={styles['truck-info-container']}>
   
     <TextField
               id="mrn"
@@ -18,6 +28,8 @@ return (
               onChange={onChangeHandler}
               value={additionalData.mrn}
               required
+              sx={{  width: '45ch' }}
+              
               
             />
             <TextField
@@ -40,6 +52,13 @@ return (
               required
              
             />
+             <TimePicker
+          label="Time"
+          ampm={false}
+          value={time}
+          onChange={handleTimeChange}
+          renderInput={(params) => <TextField {...params} variant="filled" />}
+        />
             
         <Button variant="contained" color="success" type="submit">
           Add

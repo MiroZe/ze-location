@@ -1,5 +1,5 @@
 import { useState } from "react";
-import TruckItem from "./TruckItem";
+import TruckItem from "./TruckItem/TruckItem";
 import TruckList from "./TruckList";
 
 
@@ -15,7 +15,6 @@ const TruckArea = () => {
         e.preventDefault();
         const truckTime = {hour:time.$H,mins:time.$m}
         setTruckList(prevState => [...prevState,{formValues,truckTime}])
-          
         
     }
     

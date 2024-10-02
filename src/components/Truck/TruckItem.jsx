@@ -5,11 +5,16 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import { useForm } from "../../hooks/useForm";
+import TruckFullInfo from "./TruckFullInfo";
+import { getDeclarationById } from "../../services/truckService";
+import Spinner from '../Common/Loader'
 
 
 const TruckItem = ({ addTruckSubmitHandler }) => {
  
   const [time, setTime] = useState(dayjs());
+  const [showLoader,setShowLoader] = useState(false)
+  const [showAdditionalInputs, setShowAdditionalInputs] = useState(false);
   const [error, setError] = useState({
     tsn: false,
     lrn: false,
@@ -19,12 +24,12 @@ const TruckItem = ({ addTruckSubmitHandler }) => {
   const initialValues = {
     tsn: "",
   };
-  const additionalData = {
-    mrn: '',
-    truckNumber:'',
+
+  const [additionalData, setAdditionalData] = useState({
     carrier: '',
-    timeOfAcception:''
-  };
+    mrn: '',
+    truckNumber: ''
+  });
 
 
 
@@ -55,6 +60,34 @@ const TruckItem = ({ addTruckSubmitHandler }) => {
     }
   };
 
+  
+
+  const getAdditionalData = async (tsn) => {
+
+    setShowLoader(true)
+
+    try {
+      if(tsn) {
+        const additionlTruckData = await getDeclarationById(tsn);
+        setAdditionalData({
+          carrier: additionlTruckData.declarationResult[0].client,
+          mrn: additionlTruckData.declarationResult[0].mrn,
+          truckNumber: additionlTruckData.declarationResult[0].vehicles[0]
+        });
+        setShowLoader(false);
+        setShowAdditionalInputs(true);
+      }
+      
+    } catch (error) {
+      console.error('Error fetching declaration:', error);
+             
+    }
+
+    console.log(showAdditionalInputs);
+    
+
+  }
+
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Box
@@ -76,6 +109,10 @@ const TruckItem = ({ addTruckSubmitHandler }) => {
           helperText={error.tsn ? "The field is requiered" : ""}
           onBlur={errorHandler}
         />
+        <>
+        {!showLoader ? <Button onClick={() => getAdditionalData(formValues.tsn)}>Get Data</Button> : <Spinner showLoader={showLoader}/>}
+        </>
+        {showAdditionalInputs && <TruckFullInfo onChangeHandler={onChangeHandler} additionalData={additionalData} />}
       
 
         <TimePicker
@@ -86,9 +123,6 @@ const TruckItem = ({ addTruckSubmitHandler }) => {
           renderInput={(params) => <TextField {...params} variant="filled" />}
         />
 
-        <Button variant="contained" color="success" type="submit">
-          Add
-        </Button>
       </Box>
     </LocalizationProvider>
   );

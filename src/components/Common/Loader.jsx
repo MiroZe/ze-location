@@ -3,14 +3,15 @@ import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 
 
-const Spinner = () => {
+const Spinner = ({showLoader}) => {
  
   return (
     <div>
       
       <Backdrop
         sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
-        open={open}
+        open={showLoader}
+       
         
       >
         <CircularProgress color="inherit" />

@@ -1,7 +1,11 @@
 import {create} from 'zustand';
 
+const storedUser = localStorage.getItem('user');
+
+
+
 const useUserStore = create((set) => ({
-    user: null,
+    user: storedUser ? JSON.parse(storedUser) : null,
   
     addUser: (userData) => {
    

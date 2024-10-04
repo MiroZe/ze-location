@@ -14,10 +14,12 @@ import { Box } from "@mui/material";
 import { useForm } from "../../../hooks/useForm";
 import { userLogin } from "../../../services/authService";
 import {useNavigate} from 'react-router-dom'
+import useUserStore from "../../../zustand/userState";
 
 export const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+  const {addUser} = useUserStore()
   const initialLoginValues = {
     username: "",
     password: "",
@@ -41,6 +43,7 @@ export const Login = () => {
     e.preventDefault();
     try {
       await userLogin({username,password});
+      addUser(username)
       navigate('/dashboard')
      
      

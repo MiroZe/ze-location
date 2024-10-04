@@ -9,6 +9,7 @@ import TruckFullInfo from "../TruckFullInfo/TruckFullInfo";
 import { getDeclarationById } from "../../../services/truckService";
 import Spinner from '../../Common/Loader';
 import styles from './TruckItem.module.css'
+import { getAcceptanceTimestamp } from "../../../utils/getAcceptanceTime";
 
 
 const TruckItem = ({ addTruckSubmitHandler }) => {
@@ -29,7 +30,8 @@ const TruckItem = ({ addTruckSubmitHandler }) => {
   const [additionalData, setAdditionalData] = useState({
     carrier: '',
     mrn: '',
-    truckNumber: ''
+    truckNumber: '',
+    acceptanceTime:''
   });
 
 
@@ -68,7 +70,8 @@ const TruckItem = ({ addTruckSubmitHandler }) => {
         setAdditionalData({
           carrier: additionlTruckData.declarationResult[0].client,
           mrn: additionlTruckData.declarationResult[0].mrn,
-          truckNumber: additionlTruckData.declarationResult[0].vehicles[0]
+          truckNumber: additionlTruckData.declarationResult[0].vehicles[0],
+          acceptanceTime:getAcceptanceTimestamp(additionlTruckData.history)
         });
         setShowLoader(false);
         setShowAdditionalInputs(true);

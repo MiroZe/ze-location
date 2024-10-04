@@ -48,8 +48,6 @@ const TruckItem = ({ addTruckSubmitHandler }) => {
     useForm(initialValues);
 
 
-
-
   const handleSubmit = (e) => {
     if (e.target.checkValidity()) {
       addTruckSubmitHandler(e, formValues );
@@ -62,9 +60,6 @@ const TruckItem = ({ addTruckSubmitHandler }) => {
 
 
   const getAdditionalData = async (tsn) => {
-
-
-
 
     try {
       if (tsn) {

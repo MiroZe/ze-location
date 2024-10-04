@@ -1,6 +1,7 @@
 import { useState } from "react";
 import TruckItem from "./TruckItem/TruckItem";
 import TruckList from "./TruckList";
+import dayjs from "dayjs";
 
 
 const TruckArea = () => {
@@ -10,11 +11,13 @@ const TruckArea = () => {
   
 
 
-    const addTruckSubmitHandler = (e,formValues,time) => {
+    const addTruckSubmitHandler = (e,formValues,additionalData) => {
 
         e.preventDefault();
-        const truckTime = {hour:time.$H,mins:time.$m}
-        setTruckList(prevState => [...prevState,{formValues,truckTime}])
+        const truckData = {...formValues,...additionalData}
+        const truckAcceptanceTime = dayjs(additionalData.acceptanceTime);
+        
+       setTruckList(prevState => [...prevState,{truckData,truckAcceptanceTime}])
         
     }
     

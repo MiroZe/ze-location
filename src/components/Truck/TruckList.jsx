@@ -1,14 +1,13 @@
 import { Box } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import TruckTimer from './TruckTimer';
+import dayjs from 'dayjs';
 
 
 const TruckList = ({ truckList }) => {
 
-
-
+  console.log(truckList);
   
-    
 
   const columns = [
     { field: 'id', headerName: 'N:', width: 50 },
@@ -19,8 +18,8 @@ const TruckList = ({ truckList }) => {
       editable: true,
     },
     {
-      field: 'lrn',
-      headerName: 'LRN',
+      field: 'mrn',
+      headerName: 'MRN',
       width: 150,
       editable: true,
     },
@@ -57,14 +56,16 @@ const TruckList = ({ truckList }) => {
 
   const rows = truckList.map((t, index) => ({
     id: index + 1,
-    tsn: t.formValues.tsn,
-    lrn: t.formValues.lrn,
+    tsn: t.truckData.tsn,
+    mrn: t.truckData.mrn,
 
-    truckNumber: t.formValues.truckNumber,
-    carrier: t.formValues.carrier,
-    time: `${t.truckTime.hour}:${t.truckTime.mins < 10 ? '0' + t.truckTime.mins : t.truckTime.mins}`,
-   
+    truckNumber: t.truckData.truckNumber,
+    carrier: t.truckData.carrier,
+    time: dayjs(t.truckAcceptanceTime).format('HH:mm'),
+
     status: '',
+   
+   
   }));
 
  

@@ -28,7 +28,10 @@ function MyTimer({ expiryTimestamp }) {
     <div className={styles['timer-container']} >
       <div className={styles['time-container']}>
       <span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span>
+      </div>
+      <div className={styles['time-container-status']}>
       {(seconds + minutes) !== 0 ?  <Button style={{backgroundColor:'red'}} >In Progress</Button> :<Button style={{backgroundColor:'green', marginLeft:'0.5em'}} >Ready</Button>  }
+
       </div>
   
     </div>

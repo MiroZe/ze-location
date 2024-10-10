@@ -1,6 +1,6 @@
 import { useState } from "react";
 import TruckItem from "./TruckItem/TruckItem";
-import TruckList from "./TruckList";
+import TruckList from "./TruckList/TruckList";
 import dayjs from "dayjs";
 
 

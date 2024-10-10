@@ -17,6 +17,7 @@ const TruckFullInfo = ({additionalData,onChangeHandler, }) => {
  
 
 
+
 return (
   <div className={styles['truck-info-container']}>
   

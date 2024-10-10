@@ -12,7 +12,8 @@
     margin-right: 0.4em;
 }
 
-.time-actions-container {
-
-    font-size: 1em;
+.time-container button {
+    color: #fff;
+    margin-left: 0.2em;
 }
+

@@ -52,8 +52,9 @@ const TruckItem = ({ addTruckSubmitHandler }) => {
 
   const handleSubmit = (e) => {
     if (e.target.checkValidity()) {
-      addTruckSubmitHandler(e, formValues );
+      addTruckSubmitHandler(e, formValues,additionalData );
       clearFormValues();
+      setShowAdditionalInputs(false)
     } else {
       alert("Form is invalid! Please check the fields...");
     }
@@ -83,7 +84,7 @@ const TruckItem = ({ addTruckSubmitHandler }) => {
       setShowLoader(false);
     }
 
-    console.log(showAdditionalInputs);
+  
 
 
   }

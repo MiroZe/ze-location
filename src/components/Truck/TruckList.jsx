@@ -7,21 +7,23 @@ const TruckList = ({ truckList }) => {
 
 
 
+console.log(truckList);
+
   
     
 
   const columns = [
-    { field: 'id', headerName: 'N:', width: 50 },
+    { field: 'id', headerName: 'N:', width: 10 },
     {
       field: 'tsn',
       headerName: 'TSN',
-      width: 150,
+      width: 190,
       editable: true,
     },
     {
-      field: 'lrn',
-      headerName: 'LRN',
-      width: 150,
+      field: 'mrn',
+      headerName: 'MRN',
+      width: 190,
       editable: true,
     },
     {
@@ -33,14 +35,14 @@ const TruckList = ({ truckList }) => {
     {
       field: 'carrier',
       headerName: 'Carrier',
-      width: 110,
+      width: 150,
       editable: true,
     },
     {
       field: 'time',
       headerName: 'Time',
       description: 'This column shows time in HH:mm format.',
-      width: 160,
+      width: 70,
     },
     {
       field: 'countdown',
@@ -58,11 +60,11 @@ const TruckList = ({ truckList }) => {
   const rows = truckList.map((t, index) => ({
     id: index + 1,
     tsn: t.formValues.tsn,
-    lrn: t.formValues.lrn,
+    mrn: t.mrn,
 
-    truckNumber: t.formValues.truckNumber,
-    carrier: t.formValues.carrier,
-    time: `${t.truckTime.hour}:${t.truckTime.mins < 10 ? '0' + t.truckTime.mins : t.truckTime.mins}`,
+    truckNumber: t.truckNumber,
+    carrier: t.carrier,
+    time: t.formattedTruckTime,
    
     status: '',
   }));

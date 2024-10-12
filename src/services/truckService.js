@@ -20,3 +20,17 @@ export const getDeclarationById = async (declarationTsn) => {
     }
 };
 
+export const addItemToTruckList = async (truckData) => {
+    try {
+        
+        const addedTruckItem = await request.post(`${baseURL}/trucks/add`, truckData);
+
+        console.log(addedTruckItem);
+        return addedTruckItem;
+
+    } catch (error) {
+        console.error("Error fetching declaration data:", error);
+        throw error;
+    }
+};
+

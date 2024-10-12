@@ -1,7 +1,7 @@
 import { useTimer } from 'react-timer-hook';
 import styles from './TruckTimer.module.css'
-import Button from '@mui/material/Button';
-import ButtonGroup from '@mui/material/ButtonGroup';
+import { Button } from '@mui/material';
+
 
 function MyTimer({ expiryTimestamp }) {
 
@@ -20,9 +20,6 @@ function MyTimer({ expiryTimestamp }) {
     minutes,
     hours,
   
-    pause,
-    resume,
-    restart,
   } = useTimer({ expiryTimestamp, onExpire: () => hasExpire() });
  
 
@@ -32,20 +29,11 @@ function MyTimer({ expiryTimestamp }) {
       <div className={styles['time-container']}>
       <span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span>
       </div>
-     <div className={styles['time-actions-container']}>
-        <ButtonGroup size='small' variant="contained">
-      
-      <Button onClick={pause}>Pause</Button>
-      <Button onClick={resume}>Resume</Button>
-      <Button onClick={() => {
-       
-        const time = new Date();
-        time.setSeconds(time.getSeconds() + 3600);
-        restart(time)
-      }}>Restart</Button>
+      <div className={styles['time-container-status']}>
       {(seconds + minutes) !== 0 ?  <Button style={{backgroundColor:'red'}} >In Progress</Button> :<Button style={{backgroundColor:'green', marginLeft:'0.5em'}} >Ready</Button>  }
-      </ButtonGroup>
+
       </div>
+  
     </div>
   );
 

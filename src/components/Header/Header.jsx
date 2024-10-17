@@ -5,7 +5,7 @@ import useUserStore from "../../zustand/userState";
 
 const Header = () => {
   const { user } = useUserStore();
-  console.log(user);
+
 
   return (
     <div className={styles["header-container"]}>
@@ -23,7 +23,7 @@ const Header = () => {
                 <Link to={"/dashboard"}>Menu</Link>
               </li>
               <li>
-                <Link>Logout</Link>
+                <Link to={'/auth/logout'}>Logout</Link>
               </li>
             </>
           )}
@@ -38,7 +38,7 @@ const Header = () => {
           </li>
         </ul>
       </div>
-      <p>Welcome, {user}</p>
+      <p>Welcome, {user? user: 'Guest'}</p>
     </div>
   );
 };

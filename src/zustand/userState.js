@@ -12,18 +12,18 @@ const useUserStore = create((set) => ({
   
       set(() => {
        
-        localStorage.setItem('user', JSON.stringify(userData)); // Save to localStorage
+        localStorage.setItem('user', JSON.stringify(userData)); 
         return { user: userData }
       });
     },
   
-    clearUser(state) {
-      localStorage.removeItem('user');
-      state.user = null; 
-  }
-    
-  
-  
+    clearUser: () => {
+      set(() => {
+        localStorage.removeItem('user');
+        return { user: null }; 
+      });
+    }
+
   }));
   
   export default useUserStore;

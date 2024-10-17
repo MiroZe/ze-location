@@ -38,7 +38,8 @@ const Header = () => {
           </li>
         </ul>
       </div>
-      <p>Welcome, {user? user: 'Guest'}</p>
+      <p>Welcome,  
+        <span>{user? ` ${user}`: ' Guest'}</span></p>
     </div>
   );
 };

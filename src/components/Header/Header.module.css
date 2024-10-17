@@ -34,3 +34,8 @@
    cursor: pointer;
    color: grey;
 }
+
+.header-container span {
+    font-weight: 700;
+    color: #f3671a;
+}

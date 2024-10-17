@@ -34,3 +34,15 @@ export const addItemToTruckList = async (truckData) => {
     }
 };
 
+export const getTodayTruckList = async() => {
+
+    try {
+        const result = await request.get(`${baseURL}/trucks/getTodayTruckList`);
+        console.log(result);
+        
+        
+    } catch (error) {
+        console.log(error)
+    }
+}
+

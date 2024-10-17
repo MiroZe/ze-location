@@ -1,18 +1,18 @@
-import { getDeclarationById } from "../../services/truckService"
+import {  getTodayTruckList } from "../../services/truckService"
 
 
 
 const Test = () => {
 
-    const onSubmitTestHandler = async (tsn) => {
-        await getDeclarationById(tsn)
+    const onSubmitTestHandler = async () => {
+        await getTodayTruckList()
 
     }
 
     return (
         <div>
             <h4>Test</h4>
-            <button onClick={() => onSubmitTestHandler('11-303261-24-485-CT-01M')}>Send Test</button>
+            <button onClick={() => onSubmitTestHandler()}>Send Test</button>
         </div>
     )
 

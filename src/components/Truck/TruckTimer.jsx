@@ -1,12 +1,16 @@
 import { useTimer } from 'react-timer-hook';
 import styles from './TruckTimer.module.css'
 import { Button } from '@mui/material';
+import useTimeStateStore from '../../zustand/timeState';
+import { useEffect, useMemo } from 'react';
 
 
-function MyTimer({ expiryTimestamp }) {
+function MyTimer() {
 
-  
-    const expiryTime = new Date()
+
+  const { elapsedTime } = useTimeStateStore();
+    const expiryTime = new Date();
+    const expiryTimestamp = elapsedTime;
     
    
     const hasExpire = (expiryTimestamp) => {
@@ -42,16 +46,30 @@ function MyTimer({ expiryTimestamp }) {
 
 const TruckTimer = () => {
 
-    
+  const {addElapsedTime} = useTimeStateStore();
 
-  const time = new Date();
-  time.setSeconds(time.getSeconds() + 3600); 
+  const time = useMemo(()=> {
+    const newTime =  new Date();
+    newTime.setSeconds(newTime.getSeconds() + 3600); 
+    return newTime;
+  },[])
+
+  useEffect(()=> {
+    if(time) {
+
+      addElapsedTime(time)
+    }
+  },[time,addElapsedTime])
+
 
  
   
   return (
+    // <div>
+    //   <MyTimer expiryTimestamp={time}  />
+    // </div>
     <div>
-      <MyTimer expiryTimestamp={time}  />
+      <MyTimer  />
     </div>
   );
 }

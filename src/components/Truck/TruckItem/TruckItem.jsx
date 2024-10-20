@@ -10,11 +10,13 @@ import { getDeclarationById } from "../../../services/truckService";
 import Spinner from '../../Common/Loader';
 import styles from './TruckItem.module.css'
 import { getAcceptanceTimestamp } from "../../../utils/getAcceptanceTime";
+import useTimeStateStore from "../../../zustand/timeState";
 
 
 const TruckItem = ({ addTruckSubmitHandler }) => {
 
 
+  const {setAcceptanceTime}= useTimeStateStore();
   const [showLoader, setShowLoader] = useState(false)
   const [showAdditionalInputs, setShowAdditionalInputs] = useState(false);
   const [error, setError] = useState({
@@ -33,7 +35,6 @@ const TruckItem = ({ addTruckSubmitHandler }) => {
     truckNumber: '',
     acceptanceTime:''
   });
-
 
 
   const errorHandler = (e) => {
@@ -67,15 +68,16 @@ const TruckItem = ({ addTruckSubmitHandler }) => {
     try {
       if (tsn) {
         setShowLoader(true);
-        const additionlTruckData = await getDeclarationById(tsn);
+        const additionalTruckData = await getDeclarationById(tsn);
         setAdditionalData({
-          carrier: additionlTruckData.declarationResult[0].client,
-          mrn: additionlTruckData.declarationResult[0].mrn,
-          truckNumber: additionlTruckData.declarationResult[0].vehicles[0],
-          acceptanceTime:getAcceptanceTimestamp(additionlTruckData.history)
+          carrier: additionalTruckData.declarationResult[0].client,
+          mrn: additionalTruckData.declarationResult[0].mrn,
+          truckNumber: additionalTruckData.declarationResult[0].vehicles[0],
+          acceptanceTime:getAcceptanceTimestamp(additionalTruckData.history)
         });
         setShowLoader(false);
         setShowAdditionalInputs(true);
+        setAcceptanceTime(getAcceptanceTimestamp(additionalTruckData.history))
       }
 
 
@@ -84,10 +86,10 @@ const TruckItem = ({ addTruckSubmitHandler }) => {
       setShowLoader(false);
     }
 
-  
-
 
   }
+  
+  
 
   return (
 

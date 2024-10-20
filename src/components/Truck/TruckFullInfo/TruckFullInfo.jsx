@@ -9,9 +9,7 @@ import dayjs from "dayjs";
 
 const TruckFullInfo = ({additionalData,onChangeHandler, }) => {
 
-  console.log(additionalData.acceptanceTime);
   
-
   const [time, setTime] = useState(dayjs(additionalData.acceptanceTime));
   const handleTimeChange = (newTime) => {
     setTime(newTime);

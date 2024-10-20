@@ -11,7 +11,6 @@ export const getDeclarationById = async (declarationTsn) => {
             credentials: 'include' 
         });
 
-        console.log(declarationData);
         return declarationData;
 
     } catch (error) {
@@ -24,8 +23,6 @@ export const addItemToTruckList = async (truckData) => {
     try {
         
         const addedTruckItem = await request.post(`${baseURL}/trucks/add`, truckData);
-
-        console.log(addedTruckItem);
         return addedTruckItem;
 
     } catch (error) {

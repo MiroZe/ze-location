@@ -1,11 +1,14 @@
-import {  getTodayTruckList } from "../../services/truckService"
+import { getDeclarationBarcodesById } from "../../services/declarationService"
+
 
 
 
 const Test = () => {
 
     const onSubmitTestHandler = async () => {
-        await getTodayTruckList()
+        const result = await getDeclarationBarcodesById('8-2625824-24-402-CT-01M ')
+        console.log(result);
+        
 
     }
 

@@ -1,13 +1,16 @@
 import { Box, TextField, Button } from "@mui/material";
-import styles from "./Barcode.module.css";
+import styles from "./Barcodes.module.css";
 import { useForm } from "../../hooks/useForm";
 import { useState } from "react";
 import Spinner from "../Common/Loader";
 import { getDeclarationBarcodesById } from "../../services/declarationService";
+import BarcodesList from "./BarcodesList";
 
 const Barcodes = () => {
   const [error, setError] = useState({ tsn: false });
   const [showLoader, setShowLoader] = useState(false);
+  const [showBarcodeList, setshowBarcodeList] = useState(false);
+  const [barCodeList, setBarcodeList] = useState([])
 
   const initialValues = {
     tsn: "",
@@ -25,12 +28,14 @@ const Barcodes = () => {
   };
 
   const getExportMrns = async (tsn) => {
-
+    setShowLoader(true);
     const result = await getDeclarationBarcodesById(tsn);
+    setBarcodeList(result)
+    setShowLoader(false);
+    setshowBarcodeList(true);
+    clearFormValues();
     console.log(result);
-    
-
-  }
+  };
 
   return (
     <Box
@@ -65,7 +70,10 @@ const Barcodes = () => {
           </Button>
         ) : (
           <Spinner showLoader={showLoader} />
-        )}
+          
+        )
+        }
+        {showBarcodeList && <BarcodesList list={barCodeList}/>}
       </>
     </Box>
   );

@@ -2,6 +2,7 @@ import styles from "./Header.module.css";
 import { Link } from "react-router-dom";
 import logo from "../../assets/sgs-logo.png";
 import useUserStore from "../../zustand/userState";
+import UserMenu from "./UserMenu";
 
 const Header = () => {
   const { user } = useUserStore();
@@ -19,9 +20,7 @@ const Header = () => {
           </li>
           {user && (
             <>
-              <li>
-                <Link to={"/dashboard"}>Menu</Link>
-              </li>
+             <UserMenu/>
               <li>
                 <Link to={'/auth/logout'}>Logout</Link>
               </li>

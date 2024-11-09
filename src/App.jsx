@@ -6,6 +6,7 @@ import Home from "./components/Home/Home";
 import Login from "./components/Auth/Login/Login";
 import Test from "./components/Test/Test";
 import Logout from "./components/Auth/Logout/Logout";
+import Barcodes from "./components/Barcodes/Barcodes";
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
      <Routes>
       <Route path="/" element={<Home/>}/>
       <Route path="/dashboard" element={<TruckArea/>}/>
+      <Route path="/barcodes" element={<Barcodes/>}/>
       <Route path="/auth/login" element={<Login/>}/>
       <Route path="/auth/logout" element={<Logout/>}/>
       <Route path="/about" element={<Test/>}/>

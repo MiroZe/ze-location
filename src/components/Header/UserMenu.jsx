@@ -38,6 +38,7 @@ const UserMenu = () =>  {
         >
           <MenuItem component={Link} to='/dashboard' onClick={handleClose}>Dashboard</MenuItem>
           <MenuItem component={Link} to='/barcodes' onClick={handleClose}>Barcodes</MenuItem>
+          <MenuItem component={Link} to='/createGroupage' onClick={handleClose}>Create groupage declaration</MenuItem>
         </Menu>
       </div>
     );

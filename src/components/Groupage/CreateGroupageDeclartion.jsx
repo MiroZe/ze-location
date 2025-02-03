@@ -14,6 +14,7 @@ const CreateGroupageDeclartion = () => {
     const initialGropuageFormValues = {
         goodsItemsCount: 0,
         totalPacks: 0,
+        exportMRNNumber:'',
         invoiceNumber: '',
         cmrNumber:'',
         invoiceValue: 0,
@@ -49,6 +50,7 @@ const CreateGroupageDeclartion = () => {
 
                 <TextField id="outlined-basic" label="Брой стоки" variant="outlined" type='number' name='goodIemsCount' />
                 <TextField id="outlined-basic" label="Общ брой колети" variant="outlined" type='number' name='totalPacks' />
+                <TextField id="outlined-basic" label="MRN на износа" variant="outlined"  name='exportMRNNumber' />
                 <TextField id="outlined-basic" label="Фактура номер" variant="outlined" name='invoiceNumber'  />
                 <TextField id="outlined-basic" label="ЧМР номер" variant="outlined" name='cmrNumber' />
                 <TextField id="outlined-basic" label="Фактурна ст-ст" variant="outlined" type='number' name='invoiceValue' />

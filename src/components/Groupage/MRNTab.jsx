@@ -15,7 +15,7 @@ const MRNTab = ({exCount}) => {
     
     
       const handleChange = (event, newValue) => {
-        console.log(value);
+        console.log(newValue);
         
         setValue(newValue);
       };
@@ -24,7 +24,7 @@ const MRNTab = ({exCount}) => {
 
   return (
     <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
-      <Tabs value={exCount} onChange={handleChange} centered>
+      <Tabs value={value} onChange={handleChange} centered>
        
         {exCount > 0 && [...Array(exCount)].map((_,index) =>  <Tab key={index} label={`MRN -${index}`} />)}
         

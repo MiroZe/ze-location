@@ -15,6 +15,7 @@ const GroupageMainPage = () => {
 
     const [exCount, setExCount] = useState(0);
     const [showTabs, setShowTabs] = useState(false);
+    const [mrnNumbers, setMrnNumber] = useState({})
   
     const exCountHandler = (e) => {
 
@@ -23,11 +24,11 @@ const GroupageMainPage = () => {
         setExCount(value)
     };
 
-    const onClickHandler = () => {
-   
-       
+    const onClickHandler = (mrnNumber) => {
+     
         
         exCount > 0 ? setShowTabs(true) : ''
+        setMrnNumber(mrnNumber)
         
     }
    
@@ -42,7 +43,7 @@ const GroupageMainPage = () => {
             {exCount > 0 && <GroupOfMRNs exCount={exCount} onClickHandler={onClickHandler}/>}
           
 
-            {showTabs && <MRNTab exCount={exCount}/>}
+            {showTabs && <MRNTab exCount={exCount} mrnNumbers={mrnNumbers}/>}
 
         </div>
 

@@ -28,9 +28,8 @@ const GroupOfMRNs = ({ exCount, onClickHandler }) => {
             
             setErrors(errorCheck);  
         } else {
-            console.log('aal okey');
             
-           // onClickHandler();
+            onClickHandler(mrnNumber);
         }
     };
         

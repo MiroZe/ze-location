@@ -7,8 +7,8 @@ import { useState } from 'react';
 
 
 
-const MRNTab = ({exCount}) => {
-    console.log(exCount);
+const MRNTab = ({exCount, mrnNumbers}) => {
+    const mrnValues = Object.values(mrnNumbers)
     
 
     const [value, setValue] = useState(0);
@@ -26,7 +26,7 @@ const MRNTab = ({exCount}) => {
     <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
       <Tabs value={value} onChange={handleChange} centered>
        
-        {exCount > 0 && [...Array(exCount)].map((_,index) =>  <Tab key={index} label={`MRN -${index}`} />)}
+        {exCount > 0 && [...Array(exCount)].map((_,index) =>  <Tab key={index} label={mrnValues[index]} />)}
         
       </Tabs>
     </Box>

@@ -9,6 +9,7 @@ import { useForm } from '../../hooks/useForm';
 
 
 
+
 const CreateGroupageDeclartion = () => {
 
     const initialGropuageFormValues = {
@@ -39,12 +40,12 @@ const CreateGroupageDeclartion = () => {
 
     const { formValues, onChangeHandler } = useForm(initialGropuageFormValues)
 
-    console.log(formValues);
+   
 
 
     return (
         <div>
-            <h3>Groupage start page</h3>
+            
             <FormControl
                 component="form">
 

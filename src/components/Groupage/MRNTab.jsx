@@ -6,22 +6,28 @@ import { useState } from 'react';
 import styles from './MRNTab.module.css'
 import CreateGroupageDeclartion from './CreateGroupageDeclartion';
 import { Typography } from '@mui/material';
+import MRNGoodItems from './MRNGoodItems';
 
 
 
 
 const MRNTab = ({exCount, mrnNumbers}) => {
-    const mrnValues = Object.values(mrnNumbers)
+    const mrnValues = Object.values(mrnNumbers);
+
     
 
     const [value, setValue] = useState(0);
-    
+    const [componentChange, setComponentChange] = useState(true)
     
       const handleChange = (event, newValue) => {
-        console.log(newValue);
         
         setValue(newValue);
       };
+
+    
+      const changeComponent = () => {
+        setComponentChange(false)
+      }
 
 
 
@@ -38,7 +44,7 @@ const MRNTab = ({exCount, mrnNumbers}) => {
          
           {exCount > 0 && [...Array(exCount)].map((_, index) => (
             <TabPanel key={index} value={value} index={index}>
-              <CreateGroupageDeclartion mrn={mrnValues[index]} />
+             {componentChange ? <CreateGroupageDeclartion mrn={mrnValues[index]} changeComponent={changeComponent} />: <MRNGoodItems/>}
             </TabPanel>
           ))}
         </Box>

@@ -10,7 +10,7 @@ import { useForm } from '../../hooks/useForm';
 
 
 
-const CreateGroupageDeclartion = () => {
+const CreateGroupageDeclartion = ({changeComponent}) => {
 
     const initialGropuageFormValues = {
         goodsItemsCount: 0,
@@ -94,7 +94,7 @@ const CreateGroupageDeclartion = () => {
                 </div>
                 </div>
 
-                <Button variant="contained" endIcon={<SendIcon />}>
+                <Button variant="contained" endIcon={<SendIcon />} onClick={changeComponent}>
         Напред
       </Button>
 

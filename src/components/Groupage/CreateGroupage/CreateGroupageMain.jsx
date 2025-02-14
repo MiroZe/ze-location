@@ -4,6 +4,7 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { styled } from '@mui/material/styles';
 import { useForm } from '../../../hooks/useForm';
 import { useState } from 'react';
+import { getDataFromTextFile } from '../../../services/declarationService';
 
 
 
@@ -26,21 +27,33 @@ const CreateGroupageMain = () => {
     const initialVallues = {
         exCount: 0,
         tsn: '',
-        filePath: ''
+       
     }
 
-    const [filePathName, setFilePathName] = useState('')
+    const [file, setFile] = useState({})
 
     const {formValues,onChangeHandler} = useForm(initialVallues)
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
+        console.log(file);
         if (file) {
-            setFilePathName(file.name);
+            setFile(file);
         }
       };
-      
-    console.log(formValues);
+
+    const handleFileUpload = async() => {
+
+        if (file) {
+            const formData = new FormData();
+            formData.append('file',file)
+        const data =  await getDataFromTextFile(formData);
+        console.log(data);
+        
+
+
+    }
+}
 
     
 
@@ -53,7 +66,7 @@ return (
     </div>
 
     <div>
-    <TextField id="outlined-basic" label="filepath" variant="outlined" name='filePath' disabled onChange={onChangeHandler} value={filePathName} />
+    <TextField id="outlined-basic" label="filepath" variant="outlined" name='filePath' disabled onChange={onChangeHandler} value={file.name} />
     <Button
       component="label"
       role={undefined}
@@ -69,6 +82,10 @@ return (
       />
     </Button>
     </div>
+    <Button variant='contained' color='success' onClick={handleFileUpload}>
+        
+        Load Data
+    </Button>
   </div>
 )
 

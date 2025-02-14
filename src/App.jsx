@@ -7,7 +7,8 @@ import Login from "./components/Auth/Login/Login";
 import Test from "./components/Test/Test";
 import Logout from "./components/Auth/Logout/Logout";
 import Barcodes from "./components/Barcodes/Barcodes";
-import GroupageMainPage from "./components/Groupage/GroupageMainPage";
+
+import CreateGroupageMain from "./components/Groupage/CreateGroupage/CreateGroupageMain";
 
 function App() {
 
@@ -20,7 +21,7 @@ function App() {
       <Route path="/" element={<Home/>}/>
       <Route path="/dashboard" element={<TruckArea/>}/>
       <Route path="/barcodes" element={<Barcodes/>}/>
-      <Route path="/createGroupage" element={<GroupageMainPage/>}/>
+      <Route path="/createGroupage" element={<CreateGroupageMain/>}/>
       <Route path="/auth/login" element={<Login/>}/>
       <Route path="/auth/logout" element={<Logout/>}/>
       <Route path="/about" element={<Test/>}/>

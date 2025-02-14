@@ -12,14 +12,14 @@ const useUserStore = create((set) => ({
   
       set(() => {
        
-        localStorage.setItem('user', JSON.stringify(userData)); 
+        localStorage.setItem('location-user', JSON.stringify(userData)); 
         return { user: userData }
       });
     },
   
     clearUser: () => {
       set(() => {
-        localStorage.removeItem('user');
+        localStorage.removeItem('location-user');
         return { user: null }; 
       });
     }

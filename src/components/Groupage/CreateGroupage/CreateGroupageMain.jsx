@@ -66,7 +66,7 @@ return (
     </div>
 
     <div>
-    <TextField id="outlined-basic" label="filepath" variant="outlined" name='filePath' disabled onChange={onChangeHandler} value={file.name} />
+    <TextField id="outlined-basic" variant="outlined" name='filePath' disabled onChange={onChangeHandler} value={file.name} />
     <Button
       component="label"
       role={undefined}

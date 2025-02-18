@@ -38,7 +38,8 @@ const CreateGroupageMain = () => {
   const [showDataComponent, setShowDataComponent] = useState(0)
   
   
-  const [exportData, setExportData] = useState({})
+  const [exportData, setExportData] = useState(null);
+  
 
   const { formValues, onChangeHandler } = useForm(initialVallues);
 
@@ -72,12 +73,6 @@ const CreateGroupageMain = () => {
     setShowDataComponent(number)
   }
 
-  const components = 
-  {
-    0: '',
-    1:  <ExportDeclarationTraders exportData={exportData} handleComponentChange={handleComponentChange}/>,
-    2:  <ExportedGoodItems goodItems = {exportData.goodItems}/>
-  }
 
 
 
@@ -110,7 +105,8 @@ const CreateGroupageMain = () => {
       <Button variant='contained' color='success' onClick={handleFileUpload}>
         Load Data
       </Button>
-      {showDataComponent !== 0 && components[showDataComponent]} 
+      {showDataComponent === 1 && <ExportDeclarationTraders exportData={exportData} handleComponentChange={handleComponentChange}/>}
+      {showDataComponent === 2 && <ExportedGoodItems goodItems = {exportData.parsedData['Good Items']}/>} 
     </div>
   )
 

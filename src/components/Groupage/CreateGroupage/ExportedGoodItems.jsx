@@ -4,14 +4,19 @@ import Grid from '@mui/material/Grid2';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { useState } from 'react';
+import ExportedGoodItem from './ExportedGoodItem';
 
 
-const ExportedGoodItems = () => {
+const ExportedGoodItems = ({goodItems}) => {
 
-    const totalPages = 5
+  
+    const ITEMS_PER_PAGE = 20; 
 
-    const [page, setPage] = useState(1); // Current page state
-
+    
+    const [page, setPage] = useState(1); 
+    
+    const totalPages = Math.ceil(goodItems.length / ITEMS_PER_PAGE)
+    const paginatedItems = goodItems.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE);
 
     const handlePageChange = (_, value) => {
              setPage(value);
@@ -21,18 +26,20 @@ const ExportedGoodItems = () => {
     return (
         <Box sx={{ flexGrow: 1, p: 2 }}>
             <Stack spacing={3} alignItems="center">
-                {/* Pagination on top */}
+              
                 <Pagination count={totalPages} color="secondary" page={page} onChange={handlePageChange} />
 
              
                 <Grid container spacing={2}>
                     
+                    
+                     {paginatedItems.map( (e,index) => <ExportedGoodItem key={index} goodItem={e}/>)} 
                             
                 </Grid>
                 
               
 
-                {/* Pagination on bottom */}
+                
                 <Pagination count={totalPages} color="secondary" page={page} onChange={handlePageChange} />
             </Stack>
         </Box>

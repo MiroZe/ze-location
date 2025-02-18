@@ -18,7 +18,7 @@ const ExportDeclarationTraders = ({exportData, handleComponentChange}) => {
 
 
 
-    console.log(parsedData);
+   
     
 
 

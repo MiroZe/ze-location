@@ -6,6 +6,7 @@ import { useForm } from '../../../hooks/useForm';
 import { useState } from 'react';
 import { getDataFromTextFile } from '../../../services/declarationService';
 import ExportDeclarationTraders from './ExportDeclarationTraders';
+import ExportedGoodItems from './ExportedGoodItems';
 
 
 
@@ -33,10 +34,15 @@ const CreateGroupageMain = () => {
   }
 
   const [file, setFile] = useState({});
-  const [showData, setShowData] = useState(false)
+
+  const [showDataComponent, setShowDataComponent] = useState(0)
+  
+  
   const [exportData, setExportData] = useState({})
 
   const { formValues, onChangeHandler } = useForm(initialVallues);
+
+ 
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -52,13 +58,27 @@ const CreateGroupageMain = () => {
       const formData = new FormData();
       formData.append('file', file)
       const data = await getDataFromTextFile(formData);
-      setShowData(true);
+      setShowDataComponent(1)
       setExportData(data);
 
 
 
     }
   }
+
+        
+  
+  const handleComponentChange = (number) => {
+    setShowDataComponent(number)
+  }
+
+  const components = 
+  {
+    0: '',
+    1:  <ExportDeclarationTraders exportData={exportData} handleComponentChange={handleComponentChange}/>,
+    2:  <ExportedGoodItems goodItems = {exportData.goodItems}/>
+  }
+
 
 
 
@@ -90,7 +110,7 @@ const CreateGroupageMain = () => {
       <Button variant='contained' color='success' onClick={handleFileUpload}>
         Load Data
       </Button>
-      {showData && <ExportDeclarationTraders exportData={exportData}/>}
+      {showDataComponent !== 0 && components[showDataComponent]} 
     </div>
   )
 

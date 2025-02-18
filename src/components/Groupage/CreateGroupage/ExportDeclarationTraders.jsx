@@ -12,7 +12,7 @@ import { useForm } from '../../../hooks/useForm';
 
 
 
-const ExportDeclarationTraders = ({exportData}) => {
+const ExportDeclarationTraders = ({exportData, handleComponentChange}) => {
 
     const {parsedData} = exportData;
 
@@ -51,9 +51,6 @@ const ExportDeclarationTraders = ({exportData}) => {
         }
         const { formValues, onChangeHandler } = useForm(initialGropuageFormValues)
 
-        
-    
-    
 
 return(
     <div>
@@ -114,7 +111,7 @@ return(
         </div>
         </div>
 
-        <Button variant="contained" endIcon={<SendIcon />} >
+        <Button variant="contained" endIcon={<SendIcon />} onClick={() => handleComponentChange(2)} >
 Напред
 </Button>
 

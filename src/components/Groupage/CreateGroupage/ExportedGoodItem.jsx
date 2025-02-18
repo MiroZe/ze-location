@@ -13,9 +13,10 @@ const ExportedGoodItem = ({goodItem}) => {
         
         <Grid  >
             <TextField
+                sx={{ width: '50px' }}
                 id='outlined-basic'
-                name='number'
-                label='number'
+                name='N:'
+                label='N:'
                 value={goodItem['Goods Item N']}
                  
             />
@@ -24,6 +25,13 @@ const ExportedGoodItem = ({goodItem}) => {
                 name='HS code'
                 label='HS code'
                 value={goodItem['HS code']}
+                 
+            />
+            <TextField
+                id='outlined-basic'
+                name='Description'
+                label='Description'
+                value=''
                  
             />
                <TextField

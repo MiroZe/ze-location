@@ -27,7 +27,7 @@ const useDeclarationStateStore = create((set, get) => ({
  
   addDeclarationData: (data) => {
     set((state) => ({
-      initialDeclarationData: {
+        declarationData: {
         ...state.declarationData,  
         ...data               
       },

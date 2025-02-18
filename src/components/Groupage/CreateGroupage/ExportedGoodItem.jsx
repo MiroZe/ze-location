@@ -1,11 +1,14 @@
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid2';
+import useDeclarationStateStore from '../../../zustand/declarationState';
 
 
 
 const ExportedGoodItem = ({goodItem}) => {
 
     
+    const {declarationData} = useDeclarationStateStore();
+    console.log(declarationData);
     
 
     return (

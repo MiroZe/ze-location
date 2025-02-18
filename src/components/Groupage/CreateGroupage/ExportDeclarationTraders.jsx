@@ -58,21 +58,21 @@ return(
     <FormControl
         component="form">
             <div>
-        <TextField id="outlined-basic" label="MRN на износа" name='exportMRNNumber' value={formValues.exportMRNNumber} />
-        <TextField  id="filled-basic" label="Общ брой колети" type='number' name='totalPacks' value={formValues.totalPacks}/>
-        <TextField  id="filled-basic" label="Общо бруто тегло" type='number' name='totalGross' value={formValues.totalGross}/>
+        <TextField id="outlined-basic" label="MRN на износа" name='exportMRNNumber' value={formValues.exportMRNNumber} onChange={onChangeHandler}/>
+        <TextField  id="filled-basic" label="Общ брой колети" type='number' name='totalPacks' value={formValues.totalPacks} onChange={onChangeHandler}/>
+        <TextField  id="filled-basic" label="Общо бруто тегло" type='number' name='totalGross' value={formValues.totalGross} onChange={onChangeHandler}/>
 
             </div>
             <div>
-        <TextField id="outlined-basic" label="Фактура номер"  name='invoiceNumber'  />
-        <TextField id="outlined-basic" label="ЧМР номер"  name='cmrNumber' />
+        <TextField id="outlined-basic" label="Фактура номер"  name='invoiceNumber' onChange={onChangeHandler} value={formValues.invoiceNumber} />
+        <TextField id="outlined-basic" label="ЧМР номер"  name='cmrNumber'  onChange={onChangeHandler} value={formValues.cmrNumber}/>
 
             </div>
             <div>
-        <TextField id="outlined-basic" label="Фактурна ст-ст"  type='number' name='invoiceValue' />
+        <TextField id="outlined-basic" label="Фактурна ст-ст"  type='number' name='invoiceValue' onChange={onChangeHandler} value={formValues.invoiceValue} />
 
         <Select
-            name='currency'
+            name='currencyCode'
             id="demo-simple-select"
             value={formValues.currencyCode}
             label="Currency"
@@ -87,31 +87,31 @@ return(
         <div>
         <h5>Изпращач</h5>
             <div>
-        <TextField id="outlined-basic" label="Код държава"  name='consignorCountryCode' value={formValues.consignorCountryCode}/>
-        <TextField id="outlined-basic" label="ID изпращач"  name='consignorID' value={formValues.consignorID} />
-        <TextField id="outlined-basic" label="Име изпращач"  name='consignorName' value={formValues.consignorName}/>
+        <TextField id="outlined-basic" label="Код държава"  name='consignorCountryCode' value={formValues.consignorCountryCode} onChange={onChangeHandler}/>
+        <TextField id="outlined-basic" label="ID изпращач"  name='consignorID' value={formValues.consignorID} onChange={onChangeHandler}/>
+        <TextField id="outlined-basic" label="Име изпращач"  name='consignorName' value={formValues.consignorName} onChange={onChangeHandler}/>
         </div>
         <div>
-        <TextField id="outlined-basic" label="Адрес"  name='consignorAddress' value={formValues.consignorAddress}/>
-        <TextField id="outlined-basic" label="Град"   name='consignorCity' value={formValues.consignorCity}/>
-        <TextField id="outlined-basic" label="ПК"  type='number' name='consignorPostalCode' value={formValues.consignorPostCode}/>
+        <TextField id="outlined-basic" label="Адрес"  name='consignorAddress' value={formValues.consignorAddress} onChange={onChangeHandler}/>
+        <TextField id="outlined-basic" label="Град"   name='consignorCity' value={formValues.consignorCity} onChange={onChangeHandler}/>
+        <TextField id="outlined-basic" label="ПК"  type='number' name='consignorPostCode' value={formValues.consignorPostCode} onChange={onChangeHandler}/>
         </div>
         </div>
         <div>
             <h5>Получател</h5>
             <div>
-        <TextField id="outlined-basic" label="Код държава"  name='consigneeCountryCode' value={formValues.consigneeCountryCode} />
-        <TextField id="outlined-basic" label="ID получател"  name='consigneeID' value={formValues.consigneeID}/>
-        <TextField id="outlined-basic" label="Име получател" name='consigneeName' value={formValues.consigneeName} />
+        <TextField id="outlined-basic" label="Код държава"  name='consigneeCountryCode' value={formValues.consigneeCountryCode} onChange={onChangeHandler} />
+        <TextField id="outlined-basic" label="ID получател"  name='consigneeID' value={formValues.consigneeID} onChange={onChangeHandler}/>
+        <TextField id="outlined-basic" label="Име получател" name='consigneeName' value={formValues.consigneeName} onChange={onChangeHandler}/>
         </div>
         <div>
-        <TextField id="outlined-basic" label="Адрес" name='consigneeAddress' value={formValues.consigneeAddress} />
-        <TextField id="outlined-basic" label="Град"   name='consigneeCity' value={formValues.consigneeCity}/>
-        <TextField id="outlined-basic" label="ПК"  type='number' name='consigneePostalCode' value={formValues.consigneePostCode} />
+        <TextField id="outlined-basic" label="Адрес" name='consigneeAddress' value={formValues.consigneeAddress} onChange={onChangeHandler} />
+        <TextField id="outlined-basic" label="Град"   name='consigneeCity' value={formValues.consigneeCity} onChange={onChangeHandler}/>
+        <TextField id="outlined-basic" label="ПК"  type='number' name='consigneePostCode' value={formValues.consigneePostCode} onChange={onChangeHandler} />
         </div>
         </div>
 
-        <Button variant="contained" endIcon={<SendIcon />} onClick={() => handleComponentChange(2)} >
+        <Button variant="contained" endIcon={<SendIcon />} onClick={() => handleComponentChange(2, formValues)} >
 Напред
 </Button>
 

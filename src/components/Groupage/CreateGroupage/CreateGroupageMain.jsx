@@ -7,11 +7,14 @@ import { useState } from 'react';
 import { getDataFromTextFile } from '../../../services/declarationService';
 import ExportDeclarationTraders from './ExportDeclarationTraders';
 import ExportedGoodItems from './ExportedGoodItems';
+import useDeclarationStateStore from '../../../zustand/declarationState';
 
 
 
 
 const CreateGroupageMain = () => {
+
+  const {addDeclarationData} = useDeclarationStateStore();
 
 
   const VisuallyHiddenInput = styled('input')({
@@ -69,8 +72,10 @@ const CreateGroupageMain = () => {
 
         
   
-  const handleComponentChange = (number) => {
-    setShowDataComponent(number)
+  const handleComponentChange = (number, traderData) => {
+    setShowDataComponent(number);
+    addDeclarationData(traderData)
+    
   }
 
 

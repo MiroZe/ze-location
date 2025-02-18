@@ -5,7 +5,7 @@ import Grid from '@mui/material/Grid2';
 
 const ExportedGoodItem = ({goodItem}) => {
 
-    console.log(goodItem);
+    
     
 
     return (

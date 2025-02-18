@@ -5,6 +5,7 @@ import { styled } from '@mui/material/styles';
 import { useForm } from '../../../hooks/useForm';
 import { useState } from 'react';
 import { getDataFromTextFile } from '../../../services/declarationService';
+import ExportDeclarationTraders from './ExportDeclarationTraders';
 
 
 
@@ -12,82 +13,86 @@ import { getDataFromTextFile } from '../../../services/declarationService';
 const CreateGroupageMain = () => {
 
 
-    const VisuallyHiddenInput = styled('input')({
-        clip: 'rect(0 0 0 0)',
-        clipPath: 'inset(50%)',
-        height: 1,
-        overflow: 'hidden',
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        whiteSpace: 'nowrap',
-        width: 1,
-      });
+  const VisuallyHiddenInput = styled('input')({
+    clip: 'rect(0 0 0 0)',
+    clipPath: 'inset(50%)',
+    height: 1,
+    overflow: 'hidden',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    whiteSpace: 'nowrap',
+    width: 1,
+  });
 
-    const initialVallues = {
-        exCount: 0,
-        tsn: '',
-       
+  const initialVallues = {
+
+    tsn: '',
+    mrnNumber: ''
+
+  }
+
+  const [file, setFile] = useState({});
+  const [showData, setShowData] = useState(false)
+  const [exportData, setExportData] = useState({})
+
+  const { formValues, onChangeHandler } = useForm(initialVallues);
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+
+    if (file) {
+      setFile(file);
     }
+  };
 
-    const [file, setFile] = useState({})
+  const handleFileUpload = async () => {
 
-    const {formValues,onChangeHandler} = useForm(initialVallues)
+    if (file) {
+      const formData = new FormData();
+      formData.append('file', file)
+      const data = await getDataFromTextFile(formData);
+      setShowData(true);
+      setExportData(data);
 
-    const handleFileChange = (event) => {
-        const file = event.target.files[0];
-        console.log(file);
-        if (file) {
-            setFile(file);
-        }
-      };
-
-    const handleFileUpload = async() => {
-
-        if (file) {
-            const formData = new FormData();
-            formData.append('file',file)
-        const data =  await getDataFromTextFile(formData);
-        console.log(data);
-        
 
 
     }
-}
+  }
 
-    
 
-return (
-  <div>
+
+  return (
     <div>
-    <TextField id="outlined-basic" label="TSN" variant="outlined" name='tsn' onChange={onChangeHandler} value={formValues.tsn} />
-    <TextField id="outlined-basic" label="Брой EX" variant="outlined" type='number' name='exCount' value={formValues.exCount} onChange={onChangeHandler} />
+      <div>
+        <TextField id="outlined-basic" label="TSN" variant="outlined" name='tsn' onChange={onChangeHandler} value={formValues.tsn} />
+        <TextField id="outlined-basic" label="MRN" variant="outlined" name='mrnNumber' onChange={onChangeHandler} value={formValues.mrnNumber} />
 
-    </div>
+      </div>
 
-    <div>
-    <TextField id="outlined-basic" variant="outlined" name='filePath' disabled onChange={onChangeHandler} value={file.name} />
-    <Button
-      component="label"
-      role={undefined}
-      variant="contained"
-      tabIndex={-1}
-      startIcon={<CloudUploadIcon />}
-    >
-      Upload file
-      <VisuallyHiddenInput
-        type="file"
-        onChange={handleFileChange}
-        multiple
-      />
-    </Button>
-    </div>
-    <Button variant='contained' color='success' onClick={handleFileUpload}>
-        
+      <div>
+        <TextField id="outlined-basic" variant="outlined" name='filePath' disabled onChange={onChangeHandler} value={file.name} />
+        <Button
+          component="label"
+          role={undefined}
+          variant="contained"
+          tabIndex={-1}
+          startIcon={<CloudUploadIcon />}
+        >
+          Upload file
+          <VisuallyHiddenInput
+            type="file"
+            onChange={handleFileChange}
+            multiple
+          />
+        </Button>
+      </div>
+      <Button variant='contained' color='success' onClick={handleFileUpload}>
         Load Data
-    </Button>
-  </div>
-)
+      </Button>
+      {showData && <ExportDeclarationTraders exportData={exportData}/>}
+    </div>
+  )
 
 }
 

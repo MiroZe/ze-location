@@ -61,16 +61,16 @@ return(
         component="form">
             <div>
         <TextField id="outlined-basic" label="MRN на износа" name='exportMRNNumber' value={formValues.exportMRNNumber} />
-        <TextField id="outlined-basic" label="Общ брой колети" type='number' name='totalPacks' />
+        <TextField  id="filled-basic" label="Общ брой колети" type='number' name='totalPacks' value={formValues.totalPacks}/>
 
             </div>
             <div>
-        <TextField id="outlined-basic" label="Фактура номер" variant="outlined" name='invoiceNumber'  />
-        <TextField id="outlined-basic" label="ЧМР номер" variant="outlined" name='cmrNumber' />
+        <TextField id="outlined-basic" label="Фактура номер"  name='invoiceNumber'  />
+        <TextField id="outlined-basic" label="ЧМР номер"  name='cmrNumber' />
 
             </div>
             <div>
-        <TextField id="outlined-basic" label="Фактурна ст-ст" variant="outlined" type='number' name='invoiceValue' />
+        <TextField id="outlined-basic" label="Фактурна ст-ст"  type='number' name='invoiceValue' />
 
         <Select
             name='currency'
@@ -88,27 +88,27 @@ return(
         <div>
         <h5>Изпращач</h5>
             <div>
-        <TextField id="outlined-basic" label="Код държава" variant="outlined" name='consignorCountryCode' />
-        <TextField id="outlined-basic" label="ID изпращач" variant="outlined" name='consignorID' />
-        <TextField id="outlined-basic" label="Име изпращач" variant="outlined" name='consignorName' />
+        <TextField id="outlined-basic" label="Код държава"  name='consignorCountryCode' />
+        <TextField id="outlined-basic" label="ID изпращач"  name='consignorID' />
+        <TextField id="outlined-basic" label="Име изпращач"  name='consignorName' />
         </div>
         <div>
-        <TextField id="outlined-basic" label="Адрес" variant="outlined" name='consignorAddress' />
-        <TextField id="outlined-basic" label="Град" variant="outlined"  name='consignorCity'/>
-        <TextField id="outlined-basic" label="ПК" variant="outlined" type='number' name='consignorPostalCode'/>
+        <TextField id="outlined-basic" label="Адрес"  name='consignorAddress' />
+        <TextField id="outlined-basic" label="Град"   name='consignorCity'/>
+        <TextField id="outlined-basic" label="ПК"  type='number' name='consignorPostalCode'/>
         </div>
         </div>
         <div>
             <h5>Получател</h5>
             <div>
-        <TextField id="outlined-basic" label="Код държава" variant="outlined" name='consigneeCountryCode' value={formValues.consigneeCountryCode} />
-        <TextField id="outlined-basic" label="ID получател" variant="outlined" name='consigneeID' />
+        <TextField id="outlined-basic" label="Код държава"  name='consigneeCountryCode' value={formValues.consigneeCountryCode} />
+        <TextField id="outlined-basic" label="ID получател"  name='consigneeID' />
         <TextField id="outlined-basic" label="Име получател" name='consigneeName' value={formValues.consigneeName} />
         </div>
         <div>
-        <TextField id="outlined-basic" label="Адрес" variant="outlined" name='consigneeAddress' />
-        <TextField id="outlined-basic" label="Град" variant="outlined"  name='consigneeCity'/>
-        <TextField id="outlined-basic" label="ПК" variant="outlined" type='number' name='consigneePostalCode'/>
+        <TextField id="outlined-basic" label="Адрес"  name='consigneeAddress' />
+        <TextField id="outlined-basic" label="Град"   name='consigneeCity'/>
+        <TextField id="outlined-basic" label="ПК"  type='number' name='consigneePostalCode'/>
         </div>
         </div>
 

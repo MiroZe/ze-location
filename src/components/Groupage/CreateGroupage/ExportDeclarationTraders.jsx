@@ -18,7 +18,7 @@ const ExportDeclarationTraders = ({exportData}) => {
 
 
 
-    console.log(parsedData.Consignee['Name']);
+    console.log(parsedData);
     
 
 
@@ -27,6 +27,7 @@ const ExportDeclarationTraders = ({exportData}) => {
            
             totalPacks: 0,
             exportMRNNumber:parsedData.MRN || '',
+            totalGross:parsedData['Total Gross weight'] || '',
             invoiceNumber: '',
             cmrNumber:'',
             invoiceValue: 0,
@@ -36,13 +37,13 @@ const ExportDeclarationTraders = ({exportData}) => {
             consignorName:parsedData.Consignor['Name'] || '',
             consignorAddres:'',
             consignorCity:'',
-            consignorPostalCode:'',
+            consignorPostCode:'',
             consigneeCountryCode:'',
             consigneeID:'',
             consigneeName:parsedData.Consignee['Name'] || '',
-            consigneeAddres:'',
+            consigneeAddres:parsedData.Consignee['Address'] || '',
             consigneeCity:'',
-            consigneePostalCode:''
+            consigneePostCode:''
             
     
     
@@ -62,6 +63,7 @@ return(
             <div>
         <TextField id="outlined-basic" label="MRN на износа" name='exportMRNNumber' value={formValues.exportMRNNumber} />
         <TextField  id="filled-basic" label="Общ брой колети" type='number' name='totalPacks' value={formValues.totalPacks}/>
+        <TextField  id="filled-basic" label="Общо бруто тегло" type='number' name='totalGross' value={formValues.totalGross}/>
 
             </div>
             <div>
@@ -88,27 +90,27 @@ return(
         <div>
         <h5>Изпращач</h5>
             <div>
-        <TextField id="outlined-basic" label="Код държава"  name='consignorCountryCode' />
-        <TextField id="outlined-basic" label="ID изпращач"  name='consignorID' />
-        <TextField id="outlined-basic" label="Име изпращач"  name='consignorName' />
+        <TextField id="outlined-basic" label="Код държава"  name='consignorCountryCode' value={formValues.consignorCountryCode}/>
+        <TextField id="outlined-basic" label="ID изпращач"  name='consignorID' value={formValues.consignorID} />
+        <TextField id="outlined-basic" label="Име изпращач"  name='consignorName' value={formValues.consignorName}/>
         </div>
         <div>
-        <TextField id="outlined-basic" label="Адрес"  name='consignorAddress' />
-        <TextField id="outlined-basic" label="Град"   name='consignorCity'/>
-        <TextField id="outlined-basic" label="ПК"  type='number' name='consignorPostalCode'/>
+        <TextField id="outlined-basic" label="Адрес"  name='consignorAddress' value={formValues.consignorAddress}/>
+        <TextField id="outlined-basic" label="Град"   name='consignorCity' value={formValues.consignorCity}/>
+        <TextField id="outlined-basic" label="ПК"  type='number' name='consignorPostalCode' value={formValues.consignorPostCode}/>
         </div>
         </div>
         <div>
             <h5>Получател</h5>
             <div>
         <TextField id="outlined-basic" label="Код държава"  name='consigneeCountryCode' value={formValues.consigneeCountryCode} />
-        <TextField id="outlined-basic" label="ID получател"  name='consigneeID' />
+        <TextField id="outlined-basic" label="ID получател"  name='consigneeID' value={formValues.consigneeID}/>
         <TextField id="outlined-basic" label="Име получател" name='consigneeName' value={formValues.consigneeName} />
         </div>
         <div>
-        <TextField id="outlined-basic" label="Адрес"  name='consigneeAddress' />
-        <TextField id="outlined-basic" label="Град"   name='consigneeCity'/>
-        <TextField id="outlined-basic" label="ПК"  type='number' name='consigneePostalCode'/>
+        <TextField id="outlined-basic" label="Адрес" name='consigneeAddress' value={formValues.consigneeAddress} />
+        <TextField id="outlined-basic" label="Град"   name='consigneeCity' value={formValues.consigneeCity}/>
+        <TextField id="outlined-basic" label="ПК"  type='number' name='consigneePostalCode' value={formValues.consigneePostCode} />
         </div>
         </div>
 

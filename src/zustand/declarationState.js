@@ -11,7 +11,7 @@ const useDeclarationStateStore = create((set) => ({
     }));
   },
  
-  // Update a specific declaration by index
+ 
   updateDeclaration: (index, updatedData) => {
     set((state) => ({
       declarations: state.declarations.map((declaration, i) =>

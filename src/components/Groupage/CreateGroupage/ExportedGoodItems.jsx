@@ -8,6 +8,7 @@ import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle';
 import { useState } from 'react';
 import ExportedGoodItem from './ExportedGoodItem';
 import useDeclarationStateStore from '../../../zustand/declarationState';
+import { getExcelFile } from '../../../services/declarationService';
 
 
 
@@ -48,8 +49,16 @@ const ExportedGoodItems = ({ goodItems, mrn }) => {
         setAllGoodItems(updatedGoodItems); // Update local state with the new item
     };
 
+    const sendDeclarationDataHandler = async () => {
+       
+        const result = await getExcelFile(declarations);
+        console.log(result);
+        
 
-    console.log(declarations);
+    }
+
+
+   
 
     return (
         <Box sx={{ flexGrow: 1, p: 2 }}>
@@ -79,7 +88,7 @@ const ExportedGoodItems = ({ goodItems, mrn }) => {
                         Save
                     </Button>
 
-                    <Button variant="contained" endIcon={<ArrowDropDownCircleIcon />}>
+                    <Button variant="contained"  onClick={sendDeclarationDataHandler} endIcon={<ArrowDropDownCircleIcon />}>
                         Send to Excel
                     </Button>
                 </div>

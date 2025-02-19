@@ -31,4 +31,19 @@ try {
     throw error;
 }
 
+};
+
+export const getExcelFile = async (declarationsData) => {
+
+    try {
+
+        const excelFile = await request.post(`${baseURL}/declarations/createDeclaration/getExcelFile`,declarationsData);
+        return excelFile;
+        
+    } catch (error) {
+        console.error("Error fetching declaration data:", error);
+        throw error;
+    }
+
+
 }

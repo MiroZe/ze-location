@@ -6,7 +6,11 @@ import { useEffect, useState } from 'react';
 
 
 
-const ExportedGoodItem = ({goodItem, onChange }) => {
+
+const ExportedGoodItem = ({goodItem , onChange }) => {
+
+
+
 
 
     
@@ -34,6 +38,10 @@ const ExportedGoodItem = ({goodItem, onChange }) => {
           setPreviousFormValues(formValues); // Update the previous form values
         }
       }, [formValues, previousFormValues, onChange]);
+
+   
+
+    
 
     return (
 

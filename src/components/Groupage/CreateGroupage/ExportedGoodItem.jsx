@@ -16,7 +16,7 @@ const ExportedGoodItem = ({goodItem, onChange }) => {
         'Description': goodItem['Description'],
         'Gross weight': goodItem['Gross weight'],
         'Net weight' : goodItem["Net weight"],
-        'Statical Value' :goodItem["Statical value"]
+        'Statical Value' :goodItem["Statical Value"]
 
 
 
@@ -83,9 +83,9 @@ const ExportedGoodItem = ({goodItem, onChange }) => {
             />
              <TextField
                 id='outlined-basic'
-                name='Statical value'
+                name='Statical Value'
                 label='Statical Value'
-                value={formValues['Statical value']}
+                value={formValues['Statical Value']}
                 onChange={onChangeHandler}
                  
             />

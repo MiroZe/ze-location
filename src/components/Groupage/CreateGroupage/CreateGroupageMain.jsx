@@ -14,7 +14,7 @@ import useDeclarationStateStore from '../../../zustand/declarationState';
 
 const CreateGroupageMain = () => {
 
-  const {addDeclaration,addGoodItemsToDeclaration } = useDeclarationStateStore();
+  const {addDeclaration,addGoodItemsToDeclaration, clearAllDeclarations } = useDeclarationStateStore();
 
 
   const VisuallyHiddenInput = styled('input')({
@@ -70,6 +70,10 @@ const CreateGroupageMain = () => {
     }
   }
 
+  const handleCleaAllDecalarations = () => {
+    clearAllDeclarations()
+  }
+
         
   
   const handleComponentChange = useCallback((number, traderData, goodItemsData)  => {
@@ -114,10 +118,14 @@ const CreateGroupageMain = () => {
             multiple
           />
         </Button>
+        <Button variant='contained' color='error' onClick={handleCleaAllDecalarations}>
+        Clear
+      </Button>
       </div>
       <Button variant='contained' color='success' onClick={handleFileUpload}>
         Load Data
       </Button>
+      
       {showDataComponent === 1 && <ExportDeclarationTraders exportData={exportData} handleComponentChange={handleComponentChange}/>}
       {showDataComponent === 2 && <ExportedGoodItems goodItems = {exportData.parsedData['Good Items']} mrn={formValues.mrnNumber}/>} 
     </div>

@@ -1,31 +1,39 @@
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid2';
-import useDeclarationStateStore from '../../../zustand/declarationState';
+
 import { useForm } from '../../../hooks/useForm';
+import { useEffect, useState } from 'react';
 
 
 
-const ExportedGoodItem = ({goodItem}) => {
+const ExportedGoodItem = ({goodItem, onChange }) => {
 
-    
-    
-    const {declarations} = useDeclarationStateStore();
-    console.log(declarations);
+
     
     const initialGoodItemsValue = {
         'Goods Item N':goodItem['Goods Item N'],
         'HS code': goodItem['HS code'],
-        'Description': '',
-        'Gross weight' : goodItem['Gross weight'],
-        'Net weight' : goodItem['Net weight'],
-        'Statical Value' : goodItem['Statical value']
+        'Description': goodItem['Description'],
+        'Gross weight': goodItem['Gross weight'],
+        'Net weight' : goodItem["Net weight"],
+        'Statical Value' :goodItem["Statical value"]
 
 
 
     }
 
-    const {formValues,onChangeHandler} = useForm(initialGoodItemsValue)
-    
+    const {formValues,onChangeHandler} = useForm(initialGoodItemsValue);
+    const [previousFormValues, setPreviousFormValues] = useState(initialGoodItemsValue);
+
+    useEffect(() => {
+        
+        if (JSON.stringify(formValues) !== JSON.stringify(previousFormValues)) {
+          if (onChange) {
+            onChange(formValues);
+          }
+          setPreviousFormValues(formValues); // Update the previous form values
+        }
+      }, [formValues, previousFormValues, onChange]);
 
     return (
 
@@ -67,7 +75,7 @@ const ExportedGoodItem = ({goodItem}) => {
             />
                 <TextField
                 id='outlined-basic'
-                name='Net Weight'
+                name='Net weight'
                 label='Net Weight'
                 value={formValues['Net weight']}
                 onChange={onChangeHandler}
@@ -75,7 +83,7 @@ const ExportedGoodItem = ({goodItem}) => {
             />
              <TextField
                 id='outlined-basic'
-                name='Statical Value'
+                name='Statical value'
                 label='Statical Value'
                 value={formValues['Statical value']}
                 onChange={onChangeHandler}

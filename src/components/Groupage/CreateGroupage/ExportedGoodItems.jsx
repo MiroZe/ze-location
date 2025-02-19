@@ -10,14 +10,20 @@ import ExportedGoodItem from './ExportedGoodItem';
 import useDeclarationStateStore from '../../../zustand/declarationState';
 
 
-const ExportedGoodItems = ({ goodItems }) => {
+
+const ExportedGoodItems = ({ goodItems, mrn }) => {
+
+ 
+    
 
 
     const ITEMS_PER_PAGE = 20;
 
 
     const [page, setPage] = useState(1);
-    const { clearAllDeclarations } = useDeclarationStateStore(); 
+
+    const [allGoodItems, setAllGoodItems] = useState(goodItems);
+    const { updateGoodItemsByMRN, declarations } = useDeclarationStateStore();
 
     const totalPages = Math.ceil(goodItems.length / ITEMS_PER_PAGE)
     const paginatedItems = goodItems.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE);
@@ -26,23 +32,41 @@ const ExportedGoodItems = ({ goodItems }) => {
         setPage(value);
     };
 
-    const deleteDeclarations = () => {
-        clearAllDeclarations();
 
-    }
 
+    const handleSaveChanges = () => {
+        console.log(allGoodItems);
+        
+        updateGoodItemsByMRN(mrn,allGoodItems); // Call the store to update all goodItems
+        
+        
+    };
+
+    const handleGoodItemChange = (index, updatedItem) => {
+        const updatedGoodItems = [...allGoodItems];
+        updatedGoodItems[index] = updatedItem; // Update the specific goodItem
+        setAllGoodItems(updatedGoodItems); // Update local state with the new item
+    };
+
+
+    console.log(declarations);
 
     return (
         <Box sx={{ flexGrow: 1, p: 2 }}>
             <Stack spacing={3} alignItems="center">
 
-                <Pagination count={totalPages} color="secondary" page={page} onChange={handlePageChange} />
+                <Pagination count={totalPages} color="secondary" page={page}
+                    onChange={handlePageChange}
+
+                />
 
 
                 <Grid container spacing={2}>
 
 
-                    {paginatedItems.map((e, index) => <ExportedGoodItem key={index} goodItem={e} />)}
+                    {paginatedItems.map((goodItem, index) => <ExportedGoodItem key={index}
+                        goodItem={goodItem}
+                        onChange={(updatedItem) => handleGoodItemChange(index, updatedItem)} />)}
 
                 </Grid>
 
@@ -51,13 +75,13 @@ const ExportedGoodItems = ({ goodItems }) => {
 
                 <Pagination count={totalPages} color="secondary" page={page} onChange={handlePageChange} />
                 <div>
-                    <Button variant="contained" color="success" onClick={deleteDeclarations}> 
+                    <Button variant="contained" color="success" onClick={handleSaveChanges}>
                         Save
                     </Button>
 
-            <Button variant="contained" endIcon={<ArrowDropDownCircleIcon />}>
-                Send to Excel
-            </Button>
+                    <Button variant="contained" endIcon={<ArrowDropDownCircleIcon />}>
+                        Send to Excel
+                    </Button>
                 </div>
             </Stack>
         </Box>

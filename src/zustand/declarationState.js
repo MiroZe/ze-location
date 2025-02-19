@@ -2,40 +2,61 @@ import { create } from "zustand";
 
 
 const useDeclarationStateStore = create((set) => ({
-  declarations: [], // Array to hold multiple declarations
- 
-  // Add a new declaration to the array
-  addDeclaration: (newDeclaration) => {
-    set((state) => ({
-      declarations: [newDeclaration, ...state.declarations]
-    }));
-  },
- 
- 
-  updateDeclaration: (index, updatedData) => {
-    set((state) => ({
-      declarations: state.declarations.map((declaration, i) =>
-        i === index ? { ...declaration, ...updatedData } : declaration
-      )
-    }));
-  },
- 
-  // Add good items to a specific declaration by index
-  addGoodItemsToDeclaration: (index, newGoodItems) => {
-    set((state) => ({
-      declarations: state.declarations.map((declaration, i) =>
-        i === index
-          ? {
-              ...declaration,
-              goodItems: [...(declaration.goodItems || []), ...newGoodItems]
+    declarations: [], // Array to hold multiple declarations
+
+    // Add a new declaration to the array
+    addDeclaration: (newDeclaration) => {
+        set((state) => {
+            
+            const exists = state.declarations.some(declaration => declaration.exportMRNNumber === newDeclaration.exportMRNNumber);
+            
+            
+            if (!exists) {
+                return {
+                    declarations: [newDeclaration, ...state.declarations]
+                };
             }
-          : declaration
-      )
-    }));
-  },
-  clearAllDeclarations : () => set({declarations:[]})
+            
+          
+            return state;
+        });
+    },
+
+
+    updateDeclaration: (index, updatedData) => {
+        set((state) => ({
+            declarations: state.declarations.map((declaration, i) =>
+                i === index ? { ...declaration, ...updatedData } : declaration
+            )
+        }));
+    },
+
+    // Add good items to a specific declaration by index
+    addGoodItemsToDeclaration: (index, newGoodItems) => {
+        set((state) => ({
+            declarations: state.declarations.map((declaration, i) =>
+                i === index
+                    ? {
+                        ...declaration,
+                        goodItems: [...(declaration.goodItems || []), ...newGoodItems]
+                    }
+                    : declaration
+            )
+        }));
+    },
+    clearAllDeclarations: () => set({ declarations: [] }),
+
+    updateGoodItemsByMRN: (exportMRNNumber, newGoodItems) => {
+        set((state) => ({
+            declarations: state.declarations.map((declaration) =>
+                declaration.exportMRNNumber === exportMRNNumber
+                    ? { ...declaration, goodItems: newGoodItems }  // Update goodItems for matching exportMRNNumber
+                    : declaration
+            )
+        }));
+    }
 }));
-  
-  export default useDeclarationStateStore;
+
+export default useDeclarationStateStore;
 
 

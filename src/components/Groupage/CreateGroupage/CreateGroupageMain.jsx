@@ -119,7 +119,7 @@ const CreateGroupageMain = () => {
         Load Data
       </Button>
       {showDataComponent === 1 && <ExportDeclarationTraders exportData={exportData} handleComponentChange={handleComponentChange}/>}
-      {showDataComponent === 2 && <ExportedGoodItems goodItems = {exportData.parsedData['Good Items']}/>} 
+      {showDataComponent === 2 && <ExportedGoodItems goodItems = {exportData.parsedData['Good Items']} mrn={formValues.mrnNumber}/>} 
     </div>
   )
 

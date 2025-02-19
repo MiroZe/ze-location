@@ -1,39 +1,41 @@
 import { create } from "zustand";
 
-const useDeclarationStateStore = create((set, get) => ({
-  declarationData: {
-    totalPacks: 0,
-    exportMRNNumber: '',
-    totalGross: '',
-    invoiceNumber: '',
-    cmrNumber: '',
-    invoiceValue: 0,
-    currencyCode: '',
-    consignorCountryCode: '',
-    consignorID: '',
-    consignorName: '',
-    consignorAddres: '',
-    consignorCity: '',
-    consignorPostCode: '',
-    consigneeCountryCode: '',
-    consigneeID: '',
-    consigneeName: '',
-    consigneeAddres: '',
-    consigneeCity: '',
-    consigneePostCode: '',
-    goodItems: []
-  },
 
+const useDeclarationStateStore = create((set) => ({
+  declarations: [], // Array to hold multiple declarations
  
-  addDeclarationData: (data) => {
+  // Add a new declaration to the array
+  addDeclaration: (newDeclaration) => {
     set((state) => ({
-        declarationData: {
-        ...state.declarationData,  
-        ...data               
-      },
+      declarations: [newDeclaration, ...state.declarations]
     }));
   },
-  getDeclarationData : () => get().declarationData
+ 
+  // Update a specific declaration by index
+  updateDeclaration: (index, updatedData) => {
+    set((state) => ({
+      declarations: state.declarations.map((declaration, i) =>
+        i === index ? { ...declaration, ...updatedData } : declaration
+      )
+    }));
+  },
+ 
+  // Add good items to a specific declaration by index
+  addGoodItemsToDeclaration: (index, newGoodItems) => {
+    set((state) => ({
+      declarations: state.declarations.map((declaration, i) =>
+        i === index
+          ? {
+              ...declaration,
+              goodItems: [...(declaration.goodItems || []), ...newGoodItems]
+            }
+          : declaration
+      )
+    }));
+  },
+  clearAllDeclarations : () => set({declarations:[]})
 }));
+  
+  export default useDeclarationStateStore;
 
-export default useDeclarationStateStore;
+

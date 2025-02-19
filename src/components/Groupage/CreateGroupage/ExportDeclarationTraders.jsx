@@ -15,6 +15,9 @@ import { useForm } from '../../../hooks/useForm';
 const ExportDeclarationTraders = ({exportData, handleComponentChange}) => {
 
     const {parsedData} = exportData;
+    const goodItemsData = parsedData['Good Items'];
+   
+    
 
 
 
@@ -111,7 +114,7 @@ return(
         </div>
         </div>
 
-        <Button variant="contained" endIcon={<SendIcon />} onClick={() => handleComponentChange(2, formValues)} >
+        <Button variant="contained" endIcon={<SendIcon />} onClick={() => handleComponentChange(2, formValues, goodItemsData)} >
 Напред
 </Button>
 

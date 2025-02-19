@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { styled } from '@mui/material/styles';
 import { useForm } from '../../../hooks/useForm';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { getDataFromTextFile } from '../../../services/declarationService';
 import ExportDeclarationTraders from './ExportDeclarationTraders';
 import ExportedGoodItems from './ExportedGoodItems';
@@ -14,7 +14,7 @@ import useDeclarationStateStore from '../../../zustand/declarationState';
 
 const CreateGroupageMain = () => {
 
-  const {addDeclarationData} = useDeclarationStateStore();
+  const {addDeclaration,addGoodItemsToDeclaration } = useDeclarationStateStore();
 
 
   const VisuallyHiddenInput = styled('input')({
@@ -72,11 +72,19 @@ const CreateGroupageMain = () => {
 
         
   
-  const handleComponentChange = (number, traderData) => {
+  const handleComponentChange = useCallback((number, traderData, goodItemsData)  => {
     setShowDataComponent(number);
-    addDeclarationData(traderData)
+
+    const newDeclarationIndex = 0;
+    addDeclaration({
+      ...traderData,
+      goodItems: [] 
+    });
+    if (goodItemsData && goodItemsData.length > 0) {
+      addGoodItemsToDeclaration(newDeclarationIndex, goodItemsData);
+    }
     
-  }
+  },[addDeclaration,addGoodItemsToDeclaration,setShowDataComponent ])
 
 
 

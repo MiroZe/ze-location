@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle';
 import { useState } from 'react';
 import ExportedGoodItem from './ExportedGoodItem';
+import useDeclarationStateStore from '../../../zustand/declarationState';
 
 
 const ExportedGoodItems = ({ goodItems }) => {
@@ -16,6 +17,7 @@ const ExportedGoodItems = ({ goodItems }) => {
 
 
     const [page, setPage] = useState(1);
+    const { clearAllDeclarations } = useDeclarationStateStore(); 
 
     const totalPages = Math.ceil(goodItems.length / ITEMS_PER_PAGE)
     const paginatedItems = goodItems.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE);
@@ -23,6 +25,11 @@ const ExportedGoodItems = ({ goodItems }) => {
     const handlePageChange = (_, value) => {
         setPage(value);
     };
+
+    const deleteDeclarations = () => {
+        clearAllDeclarations();
+
+    }
 
 
     return (
@@ -43,9 +50,15 @@ const ExportedGoodItems = ({ goodItems }) => {
 
 
                 <Pagination count={totalPages} color="secondary" page={page} onChange={handlePageChange} />
+                <div>
+                    <Button variant="contained" color="success" onClick={deleteDeclarations}> 
+                        Save
+                    </Button>
+
             <Button variant="contained" endIcon={<ArrowDropDownCircleIcon />}>
-                Save to Excel
+                Send to Excel
             </Button>
+                </div>
             </Stack>
         </Box>
     )

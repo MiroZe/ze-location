@@ -6,7 +6,7 @@ export const validateFields = (fields) => {
     const mrnPattern = /^[A-Z0-9]{18}$/;
 
     return Object.entries(fields).reduce((errors, [key, value]) => {
-        if (key === 'consignorID' || key === 'consigneeID') {
+        if (key === 'consignorID' || key === 'consigneeID' ) {
             
             return errors;
         }

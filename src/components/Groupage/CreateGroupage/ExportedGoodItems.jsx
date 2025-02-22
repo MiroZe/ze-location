@@ -9,14 +9,36 @@ import useDeclarationStateStore from '../../../zustand/declarationState';
 import { getExcelFile } from '../../../services/declarationService';
 
 const ExportedGoodItems = ({ goodItems: initialGoodItems, mrn }) => {
+
+  
+    
+    
+
     const ITEMS_PER_PAGE = 20;
     const [page, setPage] = useState(1);
     const [allGoodItems, setAllGoodItems] = useState(initialGoodItems); // Local state for goodItems
 
     const { declarations, updateGoodItemsByMRN } = useDeclarationStateStore();
+    const declarationItems = allGoodItems.length;
+    const [{ invoiceValue,totalPacks }] = declarations;
+    
+    
+    
+        
+    
+    const updatedItems = allGoodItems.map((d, index) => ({
+        ...d,
+        ...(index === 0 ? { totalPacks } : {}), 
+        ['Statical Value']: d['Statical Value'] === 0 
+          ? invoiceValue / declarationItems 
+          : d['Statical Value']  
+      }));
+      
+    
+    
 
     const totalPages = Math.ceil(allGoodItems.length / ITEMS_PER_PAGE);
-    const paginatedItems = allGoodItems.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE);
+    const paginatedItems = updatedItems.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE);
 
     const handlePageChange = (_, value) => {
         setPage(value);

@@ -43,7 +43,8 @@ const CreateGroupageMain = () => {
   const [showDataComponent, setShowDataComponent] = useState(0)
   const [exportData, setExportData] = useState(null);
   const { formValues, onChangeHandler } = useForm(initialVallues);
-  const [errors,setErrors] = useState({})
+ 
+  const [errors,setErrors] = useState({});
 
  
 
@@ -73,7 +74,7 @@ const CreateGroupageMain = () => {
         return;
     }
 
-    // Disable button to prevent multiple uploads
+   
     setDisabled(true);
 
     try {
@@ -107,7 +108,6 @@ const CreateGroupageMain = () => {
   const handleComponentChange = useCallback((e,number, traderData, goodItemsData)  => {
     e.preventDefault();
     setShowDataComponent(number);
-
     
 
     const newDeclarationIndex = 0;
@@ -144,6 +144,8 @@ const CreateGroupageMain = () => {
            value={formValues.mrnNumber}
            error={!!errors.mrnNumber}
          helperText={errors.mrnNumber} />
+         
+            
 
       </div>
 
@@ -173,7 +175,7 @@ const CreateGroupageMain = () => {
       </Button>
       
       {showDataComponent === 1 && <ExportDeclarationTraders exportData={exportData} handleComponentChange={handleComponentChange}/>}
-      {showDataComponent === 2 && <ExportedGoodItems goodItems = {exportData.parsedData['Good Items']} mrn={formValues.mrnNumber}/>} 
+      {showDataComponent === 2 && <ExportedGoodItems goodItems = {exportData.parsedData['Good Items']} mrn={formValues.mrnNumber} />} 
     </div>
   )
 

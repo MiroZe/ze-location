@@ -11,13 +11,14 @@ const ExportedGoodItem = ({goodItem , onChange }) => {
 
 
 
+console.log(goodItem);
 
 
     
     const initialGoodItemsValue = {
         'Goods Item N':goodItem['Goods Item N'],
         'HS code': goodItem['HS code'],
-        'Description': goodItem['Description'],
+        'totalPacks': goodItem['totalPacks'] || 0,
         'Gross weight': goodItem['Gross weight'],
         'Net weight' : goodItem["Net weight"],
         'Statical Value' :goodItem["Statical Value"]
@@ -67,9 +68,9 @@ const ExportedGoodItem = ({goodItem , onChange }) => {
             />
             <TextField
                 id='outlined-basic'
-                name='Description'
-                label='Description'
-                value={formValues['Description']}
+                name='totalPacks'
+                label='Number of packs'
+                value={formValues['totalPacks']}
                 onChange={onChangeHandler}
                  
             />

@@ -8,6 +8,7 @@ import { getDataFromTextFile } from '../../../services/declarationService';
 import ExportDeclarationTraders from './ExportDeclarationTraders';
 import ExportedGoodItems from './ExportedGoodItems';
 import useDeclarationStateStore from '../../../zustand/declarationState';
+import styles from './CreateGroupageMain.module.css'
 
 
 
@@ -38,13 +39,8 @@ const CreateGroupageMain = () => {
 
   const [file, setFile] = useState({});
   const [fileName, setFileName] = useState('');
-
   const [showDataComponent, setShowDataComponent] = useState(0)
-  
-  
   const [exportData, setExportData] = useState(null);
-  
-
   const { formValues, onChangeHandler } = useForm(initialVallues);
 
  
@@ -104,14 +100,17 @@ const CreateGroupageMain = () => {
 
 
   return (
-    <div>
-      <div>
+    <div >
+      <div className={styles['form-container']}>
+
+    
+      <div className={styles['input-container']}>
         <TextField id="outlined-basic" label="TSN" variant="outlined" name='tsn' onChange={onChangeHandler} value={formValues.tsn} />
         <TextField id="outlined-basic" label="MRN" variant="outlined" name='mrnNumber' onChange={onChangeHandler} value={formValues.mrnNumber} />
 
       </div>
 
-      <div>
+      <div className={styles['button-container']}>
         <TextField id="outlined-basic" variant="outlined" name='fileName' disabled onChange={onChangeHandler} value={fileName} />
         <Button
           component="label"
@@ -131,7 +130,8 @@ const CreateGroupageMain = () => {
         Clear
       </Button>
       </div>
-      <Button variant='contained' color='success' onClick={handleFileUpload} disabled={disabled}>
+      </div>
+      <Button style={{marginBottom:'0.9em'}} variant='contained' color='success' onClick={handleFileUpload} disabled={disabled}>
         Load Data
       </Button>
       

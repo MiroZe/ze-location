@@ -1,0 +1,12 @@
+
+
+.form-container {
+    display: flex;
+    gap: 1em;
+}
+
+.button-container {
+    display: flex;
+    gap: 1em;
+    margin-bottom: 0.5em;
+}

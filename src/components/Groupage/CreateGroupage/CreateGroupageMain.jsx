@@ -9,6 +9,7 @@ import ExportDeclarationTraders from './ExportDeclarationTraders';
 import ExportedGoodItems from './ExportedGoodItems';
 import useDeclarationStateStore from '../../../zustand/declarationState';
 import styles from './CreateGroupageMain.module.css'
+import { validateFields } from '../../../utils/validateMRN';
 
 
 
@@ -42,6 +43,7 @@ const CreateGroupageMain = () => {
   const [showDataComponent, setShowDataComponent] = useState(0)
   const [exportData, setExportData] = useState(null);
   const { formValues, onChangeHandler } = useForm(initialVallues);
+  const [errors,setErrors] = useState({})
 
  
 
@@ -58,6 +60,14 @@ const CreateGroupageMain = () => {
 
   const handleFileUpload = async () => {
 
+    const validationErrors = validateFields(formValues);
+    setErrors(validationErrors);
+    if (Object.keys(validationErrors).length > 0) {
+     
+      return; 
+  }
+ 
+    
     if (file) {
       const formData = new FormData();
       formData.append('file', file)
@@ -67,10 +77,6 @@ const CreateGroupageMain = () => {
       setFileName('')
       setDisabled(true)
      
-      
-
-
-
     }
   }
 
@@ -105,8 +111,19 @@ const CreateGroupageMain = () => {
 
     
       <div className={styles['input-container']}>
-        <TextField id="outlined-basic" label="TSN" variant="outlined" name='tsn' onChange={onChangeHandler} value={formValues.tsn} />
-        <TextField id="outlined-basic" label="MRN" variant="outlined" name='mrnNumber' onChange={onChangeHandler} value={formValues.mrnNumber} />
+        <TextField id="outlined-basic"
+         label="TSN" variant="outlined" 
+         name='tsn' 
+         onChange={onChangeHandler}
+         value={formValues.tsn}
+         error={!!errors.tsn}
+         helperText={errors.tsn} />
+        <TextField id="outlined-basic" label="MRN" variant="outlined"
+         name='mrnNumber'
+          onChange={onChangeHandler}
+           value={formValues.mrnNumber}
+           error={!!errors.mrnNumber}
+         helperText={errors.mrnNumber} />
 
       </div>
 

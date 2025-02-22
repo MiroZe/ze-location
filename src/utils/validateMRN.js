@@ -2,23 +2,17 @@
 
 
 
+export const validateFields = (fields) => {
+    const errors = {};
+    const mrnPattern = /^[A-Z0-9]{18}$/;
 
-export const validateMRN = (mrnValues) => {
-
-    const pattern = /^[A-Z0-9]{18}$/
-    
-
-    const check = Object.entries(mrnValues).reduce((acc, [index, value]) => {
-       
-        if (!pattern.test(value)) {
-            acc[index] = 'MRN must be exactly 18 alphanumeric characters';  // Assign error message
-        } else {
-            acc[index] = 'ok';  
+    for (const key in fields) {
+        if (!fields[key]) {
+            errors[key] = "This field is required";
+        } else if (key === "mrnNumber" && !mrnPattern.test(fields[key])) {
+            errors[key] = "Invalid MRN format (must be 18 uppercase letters/numbers)";
         }
-        return acc;
-    }, {});  
+    }
 
-    return check;
-
-  
+    return errors;
 };

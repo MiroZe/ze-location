@@ -58,7 +58,7 @@ const ExportDeclarationTraders = ({ exportData, handleComponentChange }) => {
         consignorAddress: '',
         consignorCity: '',
         consignorPostCode: '',
-        consigneeCountryCode: '',
+        consigneeCountryCode: 'TR',
         consigneeID: '',
         consigneeName: parsedData.Consignee['Name'] || '',
         consigneeAddress: parsedData.Consignee['Address'] || '',

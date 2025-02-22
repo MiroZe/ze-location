@@ -20,9 +20,9 @@ const ExportedGoodItems = ({ goodItems: initialGoodItems, mrn }) => {
 
     const { declarations, updateGoodItemsByMRN } = useDeclarationStateStore();
     const declarationItems = allGoodItems.length;
-    const [{ invoiceValue,totalPacks }] = declarations;
+    const [{ invoiceValue = 0, totalPacks = 0 } = {}] = declarations;
     
-    
+   
     
         
     

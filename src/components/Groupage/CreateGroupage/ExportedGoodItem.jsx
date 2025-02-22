@@ -10,10 +10,6 @@ import { useEffect, useState } from 'react';
 const ExportedGoodItem = ({goodItem , onChange }) => {
 
 
-
-console.log(goodItem);
-
-
     
     const initialGoodItemsValue = {
         'Goods Item N':goodItem['Goods Item N'],

@@ -42,7 +42,7 @@ const CreateGroupageMain = () => {
  
   const [showDataComponent, setShowDataComponent] = useState(0)
   const [exportData, setExportData] = useState(null);
-  const { formValues, onChangeHandler, clearFormValues } = useForm(initialVallues);
+  const { formValues, onChangeHandler } = useForm(initialVallues);
   const [errors,setErrors] = useState({})
 
  
@@ -88,7 +88,7 @@ const CreateGroupageMain = () => {
      
         setExportData(data);
      
-        clearFormValues();
+       
         
     } catch (error) {
         console.error('File upload failed:', error);
@@ -107,7 +107,7 @@ const CreateGroupageMain = () => {
   const handleComponentChange = useCallback((e,number, traderData, goodItemsData)  => {
     e.preventDefault();
     setShowDataComponent(number);
-    
+
     
 
     const newDeclarationIndex = 0;

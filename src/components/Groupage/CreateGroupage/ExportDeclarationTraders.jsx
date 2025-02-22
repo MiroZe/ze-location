@@ -5,7 +5,7 @@ import FormControl from '@mui/material/FormControl';
 import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
 import { useForm } from '../../../hooks/useForm';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { validateFields } from '../../../utils/validateMRN';
 
 
@@ -19,7 +19,9 @@ const ExportDeclarationTraders = ({ exportData, handleComponentChange }) => {
 
     const { parsedData } = exportData;
     const goodItemsData = parsedData['Good Items'];
-    const [errors, setErrors] = useState({})
+    const [errors, setErrors] = useState({});
+
+
 
 
     const handleSubmitForm = (e) => {
@@ -66,7 +68,24 @@ const ExportDeclarationTraders = ({ exportData, handleComponentChange }) => {
 
 
     }
-    const { formValues, onChangeHandler } = useForm(initialGropuageFormValues)
+    const { formValues, onChangeHandler } = useForm(initialGropuageFormValues);
+
+
+    
+    useEffect(() => {
+      
+        const updatedErrors = { ...errors };
+
+       
+        Object.entries(formValues).forEach(([key, value]) => {
+            if (value) {
+                delete updatedErrors[key]; 
+            }
+        });
+    
+        setErrors(updatedErrors);
+    }, [formValues,errors]);
+
 
 
     return (

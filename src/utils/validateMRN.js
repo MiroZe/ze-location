@@ -3,22 +3,21 @@
 
 
 export const validateFields = (fields) => {
-    const errors = {};
     const mrnPattern = /^[A-Z0-9]{18}$/;
 
-    for (const key in fields) {
-
+    return Object.entries(fields).reduce((errors, [key, value]) => {
         if (key === 'consignorID' || key === 'consigneeID') {
-            continue;
+            
+            return errors;
         }
 
-
-        if (!fields[key]) {
+        if (!value) {
             errors[key] = "This field is required";
-        } else if (key === "mrnNumber" && !mrnPattern.test(fields[key])) {
+        } else if (key === "mrnNumber" && !mrnPattern.test(value)) {
             errors[key] = "Invalid MRN format (must be 18 uppercase letters/numbers)";
         }
-    }
 
-    return errors;
+        return errors;
+    }, {});
 };
+

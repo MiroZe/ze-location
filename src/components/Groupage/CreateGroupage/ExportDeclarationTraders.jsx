@@ -17,13 +17,6 @@ const ExportDeclarationTraders = ({exportData, handleComponentChange}) => {
     const {parsedData} = exportData;
     const goodItemsData = parsedData['Good Items'];
    
-    
-
-
-
-   
-    
-
 
 
      const initialGropuageFormValues = {
@@ -59,7 +52,9 @@ return(
     <div>
             
     <FormControl
-        component="form">
+        component="form"
+        noValidate
+        onSubmit={(e) => handleComponentChange(e,2, formValues, goodItemsData)}>
             <div>
         <TextField id="outlined-basic" label="MRN на износа" name='exportMRNNumber' value={formValues.exportMRNNumber} onChange={onChangeHandler}/>
         <TextField  id="filled-basic" label="Общ брой колети" type='number' name='totalPacks' value={formValues.totalPacks} onChange={onChangeHandler}/>
@@ -114,7 +109,7 @@ return(
         </div>
         </div>
 
-        <Button variant="contained" endIcon={<SendIcon />} onClick={() => handleComponentChange(2, formValues, goodItemsData)} >
+        <Button variant="contained" type='submit' endIcon={<SendIcon /> }  >
 Напред
 </Button>
 

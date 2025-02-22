@@ -15,6 +15,7 @@ import useDeclarationStateStore from '../../../zustand/declarationState';
 const CreateGroupageMain = () => {
 
   const {addDeclaration,addGoodItemsToDeclaration, clearAllDeclarations } = useDeclarationStateStore();
+  const[disabled,setDisabled] = useState(true)
 
 
   const VisuallyHiddenInput = styled('input')({
@@ -32,11 +33,11 @@ const CreateGroupageMain = () => {
   const initialVallues = {
 
     tsn: '',
-    mrnNumber: ''
-
+    mrnNumber: '',
   }
 
   const [file, setFile] = useState({});
+  const [fileName, setFileName] = useState('');
 
   const [showDataComponent, setShowDataComponent] = useState(0)
   
@@ -53,6 +54,9 @@ const CreateGroupageMain = () => {
 
     if (file) {
       setFile(file);
+      setDisabled(false)
+      setFileName(file.name)
+      
     }
   };
 
@@ -64,6 +68,10 @@ const CreateGroupageMain = () => {
       const data = await getDataFromTextFile(formData);
       setShowDataComponent(1)
       setExportData(data);
+      setFileName('')
+      setDisabled(true)
+     
+      
 
 
 
@@ -76,7 +84,8 @@ const CreateGroupageMain = () => {
 
         
   
-  const handleComponentChange = useCallback((number, traderData, goodItemsData)  => {
+  const handleComponentChange = useCallback((e,number, traderData, goodItemsData)  => {
+    e.preventDefault();
     setShowDataComponent(number);
 
     const newDeclarationIndex = 0;
@@ -103,7 +112,7 @@ const CreateGroupageMain = () => {
       </div>
 
       <div>
-        <TextField id="outlined-basic" variant="outlined" name='filePath' disabled onChange={onChangeHandler} value={file.name} />
+        <TextField id="outlined-basic" variant="outlined" name='fileName' disabled onChange={onChangeHandler} value={fileName} />
         <Button
           component="label"
           role={undefined}
@@ -122,7 +131,7 @@ const CreateGroupageMain = () => {
         Clear
       </Button>
       </div>
-      <Button variant='contained' color='success' onClick={handleFileUpload}>
+      <Button variant='contained' color='success' onClick={handleFileUpload} disabled={disabled}>
         Load Data
       </Button>
       

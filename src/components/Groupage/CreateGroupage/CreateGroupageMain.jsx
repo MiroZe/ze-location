@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { styled } from '@mui/material/styles';
 import { useForm } from '../../../hooks/useForm';
-import { useCallback, useState } from 'react';
+import { useCallback,  useState } from 'react';
 import { getDataFromTextFile } from '../../../services/declarationService';
 import ExportDeclarationTraders from './ExportDeclarationTraders';
 import ExportedGoodItems from './ExportedGoodItems';
@@ -39,10 +39,10 @@ const CreateGroupageMain = () => {
   }
 
   const [file, setFile] = useState({});
-  const [fileName, setFileName] = useState('');
+ 
   const [showDataComponent, setShowDataComponent] = useState(0)
   const [exportData, setExportData] = useState(null);
-  const { formValues, onChangeHandler } = useForm(initialVallues);
+  const { formValues, onChangeHandler, clearFormValues } = useForm(initialVallues);
   const [errors,setErrors] = useState({})
 
  
@@ -53,42 +53,62 @@ const CreateGroupageMain = () => {
     if (file) {
       setFile(file);
       setDisabled(false)
-      setFileName(file.name)
+   
       
     }
   };
 
   const handleFileUpload = async () => {
 
-    const validationErrors = validateFields(formValues);
+      const validationErrors = validateFields(formValues);
     setErrors(validationErrors);
-    if (Object.keys(validationErrors).length > 0) {
-     
-      return; 
-  }
- 
     
-    if (file) {
-      const formData = new FormData();
-      formData.append('file', file)
-      const data = await getDataFromTextFile(formData);
-      setShowDataComponent(1)
-      setExportData(data);
-      setFileName('')
-      setDisabled(true)
-     
+    if (Object.keys(validationErrors).length > 0) {
+        console.log('Validation failed:', validationErrors);
+        return; // Stop execution if errors exist
     }
-  }
+
+    if (!file) {
+        console.log('No file selected.');
+        return;
+    }
+
+    // Disable button to prevent multiple uploads
+    setDisabled(true);
+
+    try {
+        const formData = new FormData();
+        formData.append('file', file);
+        
+        const data = await getDataFromTextFile(formData);
+
+        
+      
+        setShowDataComponent(1);
+     
+        setExportData(data);
+     
+        clearFormValues();
+        
+    } catch (error) {
+        console.error('File upload failed:', error);
+        setDisabled(false); 
+    }
+};
+
 
   const handleCleaAllDecalarations = () => {
     clearAllDeclarations()
   }
+
 
         
   
   const handleComponentChange = useCallback((e,number, traderData, goodItemsData)  => {
     e.preventDefault();
     setShowDataComponent(number);
+    
+    
 
     const newDeclarationIndex = 0;
     addDeclaration({
@@ -128,7 +148,7 @@ const CreateGroupageMain = () => {
       </div>
 
       <div className={styles['button-container']}>
-        <TextField id="outlined-basic" variant="outlined" name='fileName' disabled onChange={onChangeHandler} value={fileName} />
+        <TextField id="outlined-basic" variant="outlined" name='fileName' disabled onChange={onChangeHandler} value={file.name} />
         <Button
           component="label"
           role={undefined}

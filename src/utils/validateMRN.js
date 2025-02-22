@@ -7,6 +7,12 @@ export const validateFields = (fields) => {
     const mrnPattern = /^[A-Z0-9]{18}$/;
 
     for (const key in fields) {
+
+        if (key === 'consignorID' || key === 'consigneeID') {
+            continue;
+        }
+
+
         if (!fields[key]) {
             errors[key] = "This field is required";
         } else if (key === "mrnNumber" && !mrnPattern.test(fields[key])) {

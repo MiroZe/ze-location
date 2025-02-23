@@ -4,10 +4,13 @@ import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
+import IconButton from '@mui/material/IconButton';
+import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import { useForm } from '../../../hooks/useForm';
 import { useEffect, useState } from 'react';
 import { validateFields } from '../../../utils/validateMRN';
 import styles from './ExportDeclarationTraders.module.css'
+import CountryModal from './CountryModal/CountryModal';
 
 
 
@@ -21,6 +24,7 @@ const ExportDeclarationTraders = ({ exportData, handleComponentChange }) => {
     const { parsedData } = exportData;
     const goodItemsData = parsedData['Good Items'];
     const [errors, setErrors] = useState({});
+    const [showPopup, setShowPopup] = useState(false)
 
 
 
@@ -64,8 +68,8 @@ const ExportDeclarationTraders = ({ exportData, handleComponentChange }) => {
         consigneeAddress: parsedData.Consignee['Address'] || '',
         consigneeCity: '',
         consigneePostCode: '',
-        countryOfExport:'',
-        countryOfDestination:''
+        countryOfExport: '',
+        countryOfDestination: ''
 
 
 
@@ -89,6 +93,11 @@ const ExportDeclarationTraders = ({ exportData, handleComponentChange }) => {
     }, [formValues, errors]);
 
 
+    const searchEuCountriesClickHandler = () => {
+        setShowPopup(!showPopup)
+    }
+
+
 
     return (
         <div>
@@ -97,21 +106,42 @@ const ExportDeclarationTraders = ({ exportData, handleComponentChange }) => {
                 component="form"
                 noValidate
                 onSubmit={handleSubmitForm}>
-                    <div className={styles['country-container']}>
-                    <TextField id="outlined-basic" label="Country of Export" variant="outlined"
-                    name='countryOfExport'
-                    onChange={onChangeHandler}
-                    value={formValues.countryOfExport}
-                    error={!!errors.countryOfExport}
-                    helperText={errors.countryOfExport} />
-                <TextField id="outlined-basic" label="Country of Destination" variant="outlined"
-                    name='countryOfDestination'
-                    onChange={onChangeHandler}
-                    value={formValues.countryOfDestination}
-                    error={!!errors.countryOfDestination}
-                    helperText={errors.countryOfDestination} />
+                <div className={styles['country-container']}>
+                    <div>
+                        <IconButton aria-label="delete" onClick={searchEuCountriesClickHandler}>
+                            <ManageSearchIcon />
+                        </IconButton>
+                        <TextField id="outlined-basic" label="Code Country of Export" variant="outlined"
+                            name='countryCodeOfExport'
+
+                        />
+
+                        <TextField id="outlined-basic" label="Country of Export" variant="outlined"
+                            name='countryOfExport'
+                            value={formValues.countryOfExport}
+                            disabled />
                     </div>
-               
+
+                    <div>
+
+                    <IconButton aria-label="delete">
+                        <ManageSearchIcon />
+
+                    </IconButton>
+                    <TextField id="outlined-basic" label="Code Country of Destination" variant="outlined"
+                    name='countryCodeOfDestination'
+                   
+                     />
+                    <TextField id="outlined-basic" label="Country of Destination" variant="outlined"
+                        name='countryOfDestination'
+                        onChange={onChangeHandler}
+                        value={formValues.countryOfDestination}
+                        disabled />
+                    </div>
+
+                    {showPopup && <CountryModal />}
+                </div>
+
                 <div>
                     <TextField id="outlined-basic" label="MRN на износа" name='mrnNumber' value={formValues.mrnNumber} onChange={onChangeHandler} error={!!errors.mrnNumber} helperText={errors.mrnNumber} />
                     <TextField id="filled-basic" label="Общ брой колети" type='number'

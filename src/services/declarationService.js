@@ -47,10 +47,28 @@ export const getExcelFile = async (declarationsData) => {
             throw new Error(`Failed to fetch Excel file: ${response.statusText}`);
         }
 
-        // Return the response (e.g., a Blob for file download)
+        
         return response.blob();
     } catch (error) {
         console.error("Error fetching Excel file:", error);
         throw error;
     }
 };
+
+
+export const getCountryOfDespatch = async () => {
+
+ 
+    
+    const result = await request.get(`${baseURL}/data/countriesOfDespatch`)
+   console.log(result);
+   
+
+ 
+   
+    
+
+
+}
+
+

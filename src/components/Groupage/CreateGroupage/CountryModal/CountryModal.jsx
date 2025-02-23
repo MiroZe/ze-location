@@ -11,6 +11,8 @@ const CountriesList = () => {
   useEffect(() => {
     getCountryOfDespatch()
       .then((response) => {
+        console.log(response);
+        
         setCountries(response); 
       })
       .catch((error) => {
@@ -20,7 +22,7 @@ const CountriesList = () => {
 
 
 
-  console.log(countries);
+ 
   
 
   return (

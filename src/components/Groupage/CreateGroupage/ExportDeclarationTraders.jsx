@@ -64,7 +64,7 @@ const ExportDeclarationTraders = ({ exportData, handleComponentChange }) => {
 
 
         const isValid = handleSubmit(e);
-        console.log(formValues);
+        
 
 
         if (isValid) {
@@ -118,7 +118,7 @@ const ExportDeclarationTraders = ({ exportData, handleComponentChange }) => {
                         <TextField id="outlined-basic" label="Code Country of Destination" variant="outlined"
                             name='countryCodeOfDestination'
                             onChange={onChangeHandler}
-                            value={formValues.countryCodeOfDestination}
+                            value={(formValues.countryCodeOfDestination).toUpperCase()}
                             error={!!errors.countryCodeOfDestination} helperText={errors.countryCodeOfDestination}
 
 

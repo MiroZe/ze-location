@@ -17,6 +17,7 @@ const ExportedGoodItems = ({ mrn }) => {
     
     const { declarations, updateGoodItemsByMRN } = useDeclarationStateStore();
    
+   
     
     
     const goodItemsArray = declarations[0]?.goodItems || [];
@@ -47,6 +48,7 @@ const ExportedGoodItems = ({ mrn }) => {
 
     const sendDeclarationDataHandler = async () => {
        
+        console.log(declarations);
         
         try {
             const blob = await getExcelFile(declarations);

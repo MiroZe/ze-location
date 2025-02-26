@@ -34,7 +34,6 @@ const CreateGroupageMain = () => {
 
   const initialVallues = {
 
-    tsn: '',
     mrnNumber: '',
   }
 
@@ -55,7 +54,8 @@ const CreateGroupageMain = () => {
 
     if (file) {
       setFile(file);
-      setDisabled(false)
+      setDisabled(false);
+      resetFileInput();
   
     }
   };
@@ -142,13 +142,7 @@ const CreateGroupageMain = () => {
 
     
       <div className={styles['input-container']}>
-        <TextField id="outlined-basic"
-         label="TSN" variant="outlined" 
-         name='tsn' 
-         onChange={onChangeHandler}
-         value={formValues.tsn}
-         error={!!errors.tsn}
-         helperText={errors.tsn} />
+        
         <TextField id="outlined-basic" label="MRN" variant="outlined"
          name='mrnNumber'
           onChange={onChangeHandler}

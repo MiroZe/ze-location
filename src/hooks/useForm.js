@@ -93,7 +93,7 @@ export const useForm = (initialValues) => {
    
     useEffect(() => {
         if (isSubmitted) {
-            console.log('Validating fields after submission');
+            
             const updatedErrors = validateFields();
             setErrors(updatedErrors);
         }

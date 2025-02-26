@@ -3,42 +3,30 @@ import { Box, Stack, Pagination, Button } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle';
 import ExportedGoodItem from './ExportedGoodItem'; 
-
-
 import useDeclarationStateStore from '../../../zustand/declarationState';
 import { getExcelFile } from '../../../services/declarationService';
 
-const ExportedGoodItems = ({ goodItems: initialGoodItems, mrn }) => {
+const ExportedGoodItems = ({ mrn }) => {
 
-  
+
     
     
 
     const ITEMS_PER_PAGE = 20;
     const [page, setPage] = useState(1);
-    const [allGoodItems, setAllGoodItems] = useState(initialGoodItems); // Local state for goodItems
-
-    const { declarations, updateGoodItemsByMRN } = useDeclarationStateStore();
-    const declarationItems = allGoodItems.length;
-    const [{ invoiceValue = 0, totalPacks = 0 } = {}] = declarations;
     
+    const { declarations, updateGoodItemsByMRN } = useDeclarationStateStore();
    
     
-        
     
-    const updatedItems = allGoodItems.map((d, index) => ({
-        ...d,
-        ...(index === 0 ? { totalPacks } : {}), 
-        ['Statical Value']: d['Statical Value'] === 0 
-          ? invoiceValue / declarationItems 
-          : d['Statical Value']  
-      }));
-      
-    
-    
+    const goodItemsArray = declarations[0]?.goodItems || [];
+    const [allGoodItems, setAllGoodItems] = useState(goodItemsArray); 
+   
+   
+     
 
-    const totalPages = Math.ceil(allGoodItems.length / ITEMS_PER_PAGE);
-    const paginatedItems = updatedItems.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE);
+    const totalPages = Math.ceil(goodItemsArray.length / ITEMS_PER_PAGE);
+    const paginatedItems = goodItemsArray.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE);
 
     const handlePageChange = (_, value) => {
         setPage(value);
@@ -53,11 +41,13 @@ const ExportedGoodItems = ({ goodItems: initialGoodItems, mrn }) => {
     };
 
     const handleSaveChanges = () => {
-        console.log('Saving allGoodItems:', allGoodItems);
+      
         updateGoodItemsByMRN(mrn, allGoodItems); // Save changes to the store
     };
 
     const sendDeclarationDataHandler = async () => {
+       
+        
         try {
             const blob = await getExcelFile(declarations);
             const url = window.URL.createObjectURL(blob);

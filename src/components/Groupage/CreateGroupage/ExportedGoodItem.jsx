@@ -10,6 +10,8 @@ import { useEffect, useState } from 'react';
 const ExportedGoodItem = ({goodItem , onChange }) => {
 
 
+    console.log(goodItem);
+    
     
     const initialGoodItemsValue = {
         'Goods Item N':goodItem['Goods Item N'],
@@ -39,13 +41,14 @@ const ExportedGoodItem = ({goodItem , onChange }) => {
    
 
     
+    
 
     return (
 
         
         <Grid  >
             <TextField
-                sx={{ width: '50px' }}
+                sx={{ width: '71px' }}
                 id='outlined-basic'
                 name='N:'
                 label='N:'

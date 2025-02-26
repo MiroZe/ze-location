@@ -116,7 +116,21 @@ const CreateGroupageMain = () => {
       goodItems: [] 
     });
     if (goodItemsData && goodItemsData.length > 0) {
-      addGoodItemsToDeclaration(newDeclarationIndex, goodItemsData);
+      const{totalPacks,invoiceValue} = traderData;
+      
+
+     
+     const updatedItems = goodItemsData.map((d, index) => ({
+        ...d,
+        ...(index === 0 ? { totalPacks } : { totalPacks: 0 }), 
+        ['Statical Value']: d['Statical Value'] === 0 
+          ? invoiceValue / goodItemsData.length 
+          : d['Statical Value']  
+      }));
+
+      
+      
+      addGoodItemsToDeclaration(newDeclarationIndex, updatedItems);
     }
     
   },[addDeclaration,addGoodItemsToDeclaration,setShowDataComponent ])

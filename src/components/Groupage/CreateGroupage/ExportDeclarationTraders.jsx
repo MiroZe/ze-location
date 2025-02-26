@@ -6,9 +6,11 @@ import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
 
 import { useForm } from '../../../hooks/useForm';
-import { useEffect, useState } from 'react';
-import { validateFields } from '../../../utils/validateMRN';
-import styles from './ExportDeclarationTraders.module.css'
+
+
+import styles from './ExportDeclarationTraders.module.css';
+import { euCountries } from '../../../constants/euCountries,js';
+
 
 
 
@@ -22,27 +24,6 @@ const ExportDeclarationTraders = ({ exportData, handleComponentChange }) => {
 
     const { parsedData } = exportData;
     const goodItemsData = parsedData['Good Items'];
-    const [errors, setErrors] = useState({});
-
-
-
-
-    const handleSubmitForm = (e) => {
-        e.preventDefault();
-        const validationErrors = validateFields(formValues);
-        setErrors(validationErrors)
-        console.log(errors);
-        if (Object.keys(validationErrors).length > 0) {
-            console.log('Validation failed:', validationErrors);
-            console.log(formValues);
-
-            return; // Stop execution if errors exist
-        }
-        handleComponentChange(e, 2, formValues, goodItemsData)
-
-
-    }
-
 
 
     const initialGropuageFormValues = {
@@ -66,8 +47,6 @@ const ExportDeclarationTraders = ({ exportData, handleComponentChange }) => {
         consigneeAddress: parsedData.Consignee['Address'] || '',
         consigneeCity: '',
         consigneePostCode: '',
-        countryOfExport: '',
-        countryOfDestination: '',
         codeOfCountryOfExport: "",
         countryCodeOfDestination: "",
 
@@ -76,22 +55,24 @@ const ExportDeclarationTraders = ({ exportData, handleComponentChange }) => {
 
 
     }
-    const { formValues, onChangeHandler } = useForm(initialGropuageFormValues);
+    const { formValues, onChangeHandler, errors, handleSubmit } = useForm(initialGropuageFormValues);
+
+    const handleSubmitForm = (e) => {
+
+        e.preventDefault();
 
 
 
-    useEffect(() => {
+        const isValid = handleSubmit(e);
+        console.log(formValues);
 
-        const updatedErrors = { ...errors };
-        Object.entries(formValues).forEach(([key, value]) => {
-            if (value) {
-                delete updatedErrors[key];
-            }
-        });
 
-        setErrors(updatedErrors);
-    }, [formValues, errors]);
+        if (isValid) {
+            handleComponentChange(e, 2, formValues, goodItemsData);
+        }
 
+
+    }
 
 
 
@@ -107,13 +88,11 @@ const ExportDeclarationTraders = ({ exportData, handleComponentChange }) => {
                     <div>
 
 
-
-
-
                         <TextField id="outlined-basic" label="Code Country of Export" variant="outlined"
                             name='codeOfCountryOfExport'
                             onChange={onChangeHandler}
-                            value={formValues.codeOfCountryOfExport}
+                            value={(formValues.codeOfCountryOfExport).toUpperCase()}
+                            error={!!errors.codeOfCountryOfExport} helperText={errors.codeOfCountryOfExport}
 
 
 
@@ -121,10 +100,14 @@ const ExportDeclarationTraders = ({ exportData, handleComponentChange }) => {
 
                         </TextField>
 
-                        <TextField id="outlined-basic" label="Country of Export" variant="outlined"
-                            name='countryOfExport'
+                        <TextField id="outlined-basic"
+                            variant="outlined"
+
                             onChange={onChangeHandler}
-                            value={formValues.countryOfExport}
+                            value={euCountries[formValues.codeOfCountryOfExport]}
+
+                            disabled
+
                         />
 
                     </div>
@@ -136,22 +119,24 @@ const ExportDeclarationTraders = ({ exportData, handleComponentChange }) => {
                             name='countryCodeOfDestination'
                             onChange={onChangeHandler}
                             value={formValues.countryCodeOfDestination}
+                            error={!!errors.countryCodeOfDestination} helperText={errors.countryCodeOfDestination}
 
 
 
                         />
-                        <TextField id="outlined-basic" label="Country of Destination" variant="outlined"
-                            name='countryOfDestination'
-                            onChange={onChangeHandler}
+                        <TextField id="outlined-basic" variant="outlined"
 
-                            value={formValues.countryOfDestination} />
+                            onChange={onChangeHandler}
+                            value={euCountries[formValues.countryCodeOfDestination]}
+
+                            disabled />
                     </div>
 
 
                 </div>
 
                 <div>
-                    <TextField id="outlined-basic" label="MRN на износа" name='mrnNumber' value={formValues.mrnNumber} onChange={onChangeHandler} error={!!errors.mrnNumber} helperText={errors.mrnNumber} />
+                    <TextField id="outlined-basic" label="MRN на износа" name='mrnNumber' value={formValues.mrnNumber} onChange={onChangeHandler} error={!!errors.mrnNumber} helperText={errors.mrnNumber || ""} />
                     <TextField id="filled-basic" label="Общ брой колети" type='number'
                         name='totalPacks' value={formValues.totalPacks}
                         onChange={onChangeHandler}
@@ -191,7 +176,7 @@ const ExportDeclarationTraders = ({ exportData, handleComponentChange }) => {
                     <div>
                         <TextField id="outlined-basic" label="Адрес" name='consignorAddress' value={formValues.consignorAddress} onChange={onChangeHandler} error={!!errors.consignorAddress} helperText={errors.consignorAddress} />
                         <TextField id="outlined-basic" label="Град" name='consignorCity' value={formValues.consignorCity} onChange={onChangeHandler} error={!!errors.consignorCity} helperText={errors.consignorCity} />
-                        <TextField id="outlined-basic" label="ПК" type='number' name='consignorPostCode' value={formValues.consignorPostCode} onChange={onChangeHandler} error={!!errors.consignorPostCode} helperText={errors.consignorPostCode} />
+                        <TextField id="outlined-basic" label="ПК"  name='consignorPostCode' value={formValues.consignorPostCode} onChange={onChangeHandler} error={!!errors.consignorPostCode} helperText={errors.consignorPostCode} />
                     </div>
                 </div>
                 <div>
@@ -204,7 +189,7 @@ const ExportDeclarationTraders = ({ exportData, handleComponentChange }) => {
                     <div>
                         <TextField id="outlined-basic" label="Адрес" name='consigneeAddress' value={formValues.consigneeAddress} onChange={onChangeHandler} error={!!errors.consigneeAddress} helperText={errors.consigneeAddress} />
                         <TextField id="outlined-basic" label="Град" name='consigneeCity' value={formValues.consigneeCity} onChange={onChangeHandler} error={!!errors.consigneeCity} helperText={errors.consigneeCity} />
-                        <TextField id="outlined-basic" label="ПК" type='number' name='consigneePostCode' value={formValues.consigneePostCode} onChange={onChangeHandler} error={!!errors.consigneePostCode} helperText={errors.consigneePostCode} />
+                        <TextField id="outlined-basic" label="ПК"  name='consigneePostCode' value={formValues.consigneePostCode} onChange={onChangeHandler} error={!!errors.consigneePostCode} helperText={errors.consigneePostCode} />
                     </div>
                 </div>
 

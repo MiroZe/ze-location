@@ -9,7 +9,7 @@ import ExportDeclarationTraders from './ExportDeclarationTraders';
 import ExportedGoodItems from './ExportedGoodItems';
 import useDeclarationStateStore from '../../../zustand/declarationState';
 import styles from './CreateGroupageMain.module.css'
-import { validateFields } from '../../../utils/validateMRN';
+
 
 
 
@@ -42,10 +42,12 @@ const CreateGroupageMain = () => {
  
   const [showDataComponent, setShowDataComponent] = useState(0)
   const [exportData, setExportData] = useState(null);
-  const { formValues, onChangeHandler } = useForm(initialVallues);
+  const { formValues, onChangeHandler,errors,handleSubmit } = useForm(initialVallues);
+  const [uploadKey, setUploadKey] = useState(0);
  
-  const [errors,setErrors] = useState({});
-
+  const resetFileInput = () => {
+    setUploadKey(prev => prev + 1);
+  };
  
 
   const handleFileChange = (event) => {
@@ -54,20 +56,15 @@ const CreateGroupageMain = () => {
     if (file) {
       setFile(file);
       setDisabled(false)
-   
-      
+  
     }
   };
 
   const handleFileUpload = async () => {
 
-      const validationErrors = validateFields(formValues);
-    setErrors(validationErrors);
+    handleSubmit()
     
-    if (Object.keys(validationErrors).length > 0) {
-        console.log('Validation failed:', validationErrors);
-        return; // Stop execution if errors exist
-    }
+    
 
     if (!file) {
         console.log('No file selected.');
@@ -174,6 +171,7 @@ const CreateGroupageMain = () => {
         >
           Upload file
           <VisuallyHiddenInput
+            key={uploadKey}
             type="file"
             onChange={handleFileChange}
             multiple

@@ -9,6 +9,7 @@ import ExportDeclarationTraders from './ExportDeclarationTraders';
 import ExportedGoodItems from './ExportedGoodItems';
 import useDeclarationStateStore from '../../../zustand/declarationState';
 import styles from './CreateGroupageMain.module.css'
+import ProcessStatus from './processedStatus/ProcessStatus';
 
 
 
@@ -106,29 +107,36 @@ const CreateGroupageMain = () => {
     e.preventDefault();
     setShowDataComponent(number);
     
+ 
 
-    const newDeclarationIndex = 0;
-    addDeclaration({
-      ...traderData,
-      goodItems: [] 
-    });
-    if (goodItemsData && goodItemsData.length > 0) {
-      const{totalPacks,invoiceValue} = traderData;
-      
+    if(number !== 0) {
 
-     
-     const updatedItems = goodItemsData.map((d, index) => ({
-        ...d,
-        ...(index === 0 ? { totalPacks } : { totalPacks: 0 }), 
-        ['Statical Value']: d['Statical Value'] === 0 
-          ? invoiceValue / goodItemsData.length 
-          : d['Statical Value']  
-      }));
 
-      
-      
-      addGoodItemsToDeclaration(newDeclarationIndex, updatedItems);
+      const newDeclarationIndex = 0;
+      addDeclaration({
+        ...traderData,
+        goodItems: [] 
+      });
+      if (goodItemsData && goodItemsData.length > 0) {
+        const{totalPacks,invoiceValue} = traderData;
+        
+  
+       
+       const updatedItems = goodItemsData.map((d, index) => ({
+          ...d,
+          ...(index === 0 ? { totalPacks } : { totalPacks: 0 }), 
+          ['Statical Value']: d['Statical Value'] === 0 
+            ? invoiceValue / goodItemsData.length 
+            : d['Statical Value']  
+        }));
+  
+        
+        
+        addGoodItemsToDeclaration(newDeclarationIndex, updatedItems);
+      }
     }
+    
+
     
   },[addDeclaration,addGoodItemsToDeclaration,setShowDataComponent ])
 
@@ -175,13 +183,14 @@ const CreateGroupageMain = () => {
         Clear
       </Button>
       </div>
+      <ProcessStatus/>
       </div>
       <Button style={{marginBottom:'0.9em'}} variant='contained' color='success' onClick={handleFileUpload} disabled={disabled}>
         Load Data
       </Button>
       
       {showDataComponent === 1 && <ExportDeclarationTraders exportData={exportData} handleComponentChange={handleComponentChange}/>}
-      {showDataComponent === 2 && <ExportedGoodItems goodItems = {exportData.parsedData['Good Items']} mrn={formValues.mrnNumber} />} 
+      {showDataComponent === 2 && <ExportedGoodItems goodItems = {exportData.parsedData['Good Items']} mrn={formValues.mrnNumber} handleComponentChange={handleComponentChange} />} 
     </div>
   )
 

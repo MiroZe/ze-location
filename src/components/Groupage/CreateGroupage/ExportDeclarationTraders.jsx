@@ -24,7 +24,9 @@ const ExportDeclarationTraders = ({ exportData, handleComponentChange }) => {
 
     const { parsedData } = exportData;
     const goodItemsData = parsedData['Good Items'];
-
+    
+ 
+    
 
     const initialGropuageFormValues = {
 

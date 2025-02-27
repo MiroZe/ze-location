@@ -8,7 +8,7 @@ const useDeclarationStateStore = create((set) => ({
     addDeclaration: (newDeclaration) => {
         set((state) => {
             
-            const exists = state.declarations.some(declaration => declaration.exportMRNNumber === newDeclaration.exportMRNNumber);
+            const exists = state.declarations.some(declaration => declaration.mrnNumber === newDeclaration.mrnNumber);
             
             
             if (!exists) {
@@ -49,7 +49,7 @@ const useDeclarationStateStore = create((set) => ({
     updateGoodItemsByMRN: (exportMRNNumber, newGoodItems) => {
         set((state) => ({
             declarations: state.declarations.map((declaration) =>
-                declaration.exportMRNNumber === exportMRNNumber
+                declaration.mrnNumber === exportMRNNumber
                     ? { ...declaration, goodItems: newGoodItems }  // Update goodItems for matching exportMRNNumber
                     : declaration
             )

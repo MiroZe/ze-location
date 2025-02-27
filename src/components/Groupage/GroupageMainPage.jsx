@@ -10,6 +10,7 @@ import GroupOfMRNs from './GroupOfMRNs';
 
 
 
+
 const GroupageMainPage = () => {
 
 
@@ -42,6 +43,7 @@ const GroupageMainPage = () => {
     return (
 
         <div className={styles['groupage-main-container']}>
+          
 
            {showExCounter &&  <TextField id="outlined-basic" label="Брой EX" variant="outlined" type='number' name='exCount' value={exCount} onChange={exCountHandler} />}
             

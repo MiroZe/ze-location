@@ -6,7 +6,7 @@ import ExportedGoodItem from './ExportedGoodItem';
 import useDeclarationStateStore from '../../../zustand/declarationState';
 import { getExcelFile } from '../../../services/declarationService';
 
-const ExportedGoodItems = ({ mrn }) => {
+const ExportedGoodItems = ({ mrn, handleComponentChange }) => {
 
 
     
@@ -22,6 +22,9 @@ const ExportedGoodItems = ({ mrn }) => {
     
     const goodItemsArray = declarations[0]?.goodItems || [];
     const [allGoodItems, setAllGoodItems] = useState(goodItemsArray); 
+
+    console.log(declarations);
+    
    
    
      
@@ -46,9 +49,17 @@ const ExportedGoodItems = ({ mrn }) => {
         updateGoodItemsByMRN(mrn, allGoodItems); // Save changes to the store
     };
 
+
+    const declarationAddHandler = (e) => {
+        handleComponentChange(e,0);
+        console.log('111');
+        
+
+    }
+
     const sendDeclarationDataHandler = async () => {
        
-        console.log(declarations);
+       
         
         try {
             const blob = await getExcelFile(declarations);
@@ -94,9 +105,14 @@ const ExportedGoodItems = ({ mrn }) => {
                     onChange={handlePageChange}
                 />
 
+                {declarations.length > 0 && 
+
                 <div>
                     <Button variant="contained" color="success" onClick={handleSaveChanges}>
                         Save
+                    </Button>
+                    <Button variant="contained" color="secondary" onClick={declarationAddHandler}>
+                        Add another declaration
                     </Button>
                     <Button
                         variant="contained"
@@ -106,6 +122,7 @@ const ExportedGoodItems = ({ mrn }) => {
                         Send to Excel
                     </Button>
                 </div>
+                }
             </Stack>
         </Box>
     );

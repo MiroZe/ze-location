@@ -44,6 +44,7 @@ const CreateGroupageMain = () => {
   const [exportData, setExportData] = useState(null);
   const { formValues, onChangeHandler,errors,handleSubmit } = useForm(initialVallues);
   const [uploadKey, setUploadKey] = useState(0);
+  const [loading,setLoading] = useState(false)
  
   const resetFileInput = () => {
     setUploadKey(prev => prev + 1);
@@ -81,7 +82,7 @@ const CreateGroupageMain = () => {
         
         const data = await getDataFromTextFile(formData);
 
-        
+        setLoading(true)
       
         setShowDataComponent(1);
      
@@ -145,6 +146,7 @@ const CreateGroupageMain = () => {
 
 
   return (
+    <div className={styles['component-container']}>
     <div >
       <div className={styles['form-container']}>
 
@@ -183,14 +185,23 @@ const CreateGroupageMain = () => {
         Clear
       </Button>
       </div>
-      <ProcessStatus/>
+    
       </div>
-      <Button style={{marginBottom:'0.9em'}} variant='contained' color='success' onClick={handleFileUpload} disabled={disabled}>
+      <Button style={{marginBottom:'0.9em'}} variant='contained' 
+      color='success'
+       onClick={handleFileUpload}
+        disabled={disabled}
+        loading={loading}>
         Load Data
       </Button>
       
       {showDataComponent === 1 && <ExportDeclarationTraders exportData={exportData} handleComponentChange={handleComponentChange}/>}
       {showDataComponent === 2 && <ExportedGoodItems goodItems = {exportData.parsedData['Good Items']} mrn={formValues.mrnNumber} handleComponentChange={handleComponentChange} />} 
+    </div>
+    <div>
+      <ProcessStatus/>
+
+    </div>
     </div>
   )
 

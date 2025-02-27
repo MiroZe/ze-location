@@ -13,6 +13,7 @@ export const ProcessStatus = () => {
 
     return (
         <div className={styles['status-container']}>
+            <h5>Обработени декларации:</h5>
             {declarationsLength <= 0 ? <p>Все още няма обработени декларации</p>:
             
             <ul>

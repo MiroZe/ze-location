@@ -1,6 +1,6 @@
 import {create} from 'zustand';
 
-const storedUser = localStorage.getItem('user');
+const storedUser = localStorage.getItem('location-user');
 
 
 

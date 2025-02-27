@@ -1,4 +1,8 @@
-
+.component-container {
+    display: flex;
+    justify-content: space-around;
+    gap: 2em;
+}
 
 .form-container {
     display: flex;

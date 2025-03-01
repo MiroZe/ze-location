@@ -9,7 +9,7 @@ import ExportDeclarationTraders from './ExportDeclarationTraders';
 import ExportedGoodItems from './ExportedGoodItems';
 import useDeclarationStateStore from '../../../zustand/declarationState';
 import styles from './CreateGroupageMain.module.css'
-import ProcessStatus from './processedStatus/ProcessStatus';
+import ProcessStatus from './ProcessedStatus/ProcessStatus';
 
 
 

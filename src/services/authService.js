@@ -7,7 +7,7 @@ export const userLogin = async (userData) => {
   const { username, password } = userData;
   
 
-  const result = request.post(`${baseURL}/auth/login`, {username,password});
+  const result = request.post(`${baseURL}/auth/sgsLogin`, {username,password});
   return result
   };
   
